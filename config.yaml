@@ -2,7 +2,7 @@
 app:
   name: "web_app"
   mode: "dev"
-  port: 8080
+  port: 2345
   version: "v1"
 
 #日志
@@ -17,7 +17,7 @@ log:
 mysql:
   host: "127.0.0.1"
   port: "3306"
-  user: "root"
+  user: "douyin"
   password: "2eYwMzYr8z5ZajL8"
   dbname: "douyin"
 
