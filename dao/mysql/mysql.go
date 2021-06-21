@@ -33,6 +33,8 @@ func Init() error {
 	//设置链接池
 	DB.DB().SetMaxIdleConns(10)
 	DB.DB().SetMaxOpenConns(100)
+	//日志
+	//DB.LogMode(true)
 	//数据迁移
 	DB.AutoMigrate(&model.Link{})
 	return err

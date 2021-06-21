@@ -39,7 +39,8 @@ func AnalysisLink(context *gin.Context) {
 		return
 	}
 
-	arrayLinks := strings.Split(link, "\n")
+	arrayLinks := strings.Split(link, "@")
+	fmt.Println(len(arrayLinks))
 	if mysql.DB.HasTable(&model.Link{}) {
 		fmt.Println("数据库已经存在了!")
 		mysql.DB.AutoMigrate(&model.Link{})
@@ -68,10 +69,10 @@ func AnalysisLink(context *gin.Context) {
 			new := model.Link{}
 			new.RoomId = result1[0][0]
 			new.Status = 1
-			new.Link = link
+			new.Link = value
 			new.Type, _ = strconv.Atoi(kind)
-			new.CreatedAt = time.Now().Unix()
-			new.UpdatedAt = time.Now().Unix()
+			new.CreatedAt = time.Now().Format("2006-01-02 15:04:05")
+			new.UpdatedAt = time.Now().Format("2006-01-02 15:04:05")
 			mysql.DB.Save(&new)
 
 		}
@@ -106,21 +107,22 @@ func GetDyId(link string) string {
 /**
   获取 抖音所有的 链接查询
 */
-
 func GetLinksList(context *gin.Context) {
-
 	page, _ := strconv.Atoi(context.Query("page"))
 	limit, _ := strconv.Atoi(context.Query("limit"))
 	Db := mysql.DB
 	DB2 := mysql.DB
 	var total int = 0
-
 	links := make([]model.Link, 0)
-
 	if status, isExist := context.GetQuery("status"); isExist == true {
 		status, _ := strconv.Atoi(status)
 		Db = Db.Where("status=?", status)
 		DB2 = DB2.Model(links).Where("status=?", status)
+	}
+	if kind, isExist := context.GetQuery("type"); isExist == true {
+		kind, _ := strconv.Atoi(kind)
+		Db = Db.Where("type=?", kind)
+		DB2 = DB2.Model(links).Where("type=?", kind)
 	}
 
 	Db.Limit(limit).Offset((page - 1) * limit).Order("updated_at desc")
@@ -129,12 +131,59 @@ func GetLinksList(context *gin.Context) {
 		util.JsonWrite(context, -101, nil, err.Error())
 		return
 	}
-
 	context.JSON(http.StatusOK, gin.H{
 		"code":   1,
 		"count":  total,
 		"result": links,
 	})
+	return
+}
+
+/**
+手机脚本获取单个链接的接口
+*/
+func GetOneLink(context *gin.Context) {
+
+	username := context.Query("username")
+	kind := context.Query("type")
+	if username == "" || kind == "" {
+		util.JsonWrite(context, -101, nil, "获取失败,参数错误")
+		return
+	}
+	//判断这个用户是否已经正在使用链接
+	one := model.Link{}
+	mysql.DB.Where("use_user=?", username).Where("type=?", kind).Where("status=2").Find(&one)
+	if one.ID != 0 {
+		//吧这条链接 改成已经使用
+		fmt.Println("链接已经使用了!!!")
+		updateData := model.Link{
+			Status:    3,
+			//UpdatedAt: time.Now().Unix(),
+		}
+		mysql.DB.Model(&model.Link{}).Where("id=?", one.ID).Updates(&updateData)
+	}
+
+	//获取一条新的链
+	two:=model.Link{}
+	mysql.DB.Where("status=1").First(&two)
+
+	//链接用完了
+	if two.ID == 0 {
+		util.JsonWrite(context, -101, nil, "获取失败,已经没有链接了")
+		return
+	}
+
+
+	updateData := model.Link{
+		UseUser:   username,
+		Status:    2,
+		//UpdatedAt: time.Now().Unix(),
+	}
+	//
+	mysql.DB.Model(&model.Link{}).Where("id =?", two.ID).Update(&updateData)
+	//fmt.Println(util.StrToUnix(one.UpdatedAt,"2006-01-02 15:04:05"))
+	//
+	util.JsonWrite(context, 200, nil, two.RoomId)
 	return
 
 }

@@ -3,6 +3,7 @@ package util
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"time"
 )
 
 /**
@@ -28,3 +29,25 @@ func JsonWrite(context *gin.Context, status int, result interface{}, msg string)
 		"msg":    msg,
 	})
 }
+
+
+//时间戳转时间
+func UnixToStr(timeUnix int64, layout string) string {
+	timeStr := time.Unix(timeUnix, 0).Format(layout)
+	return timeStr
+}
+
+//时间转时间戳
+func StrToUnix(timeStr, layout string) (int64, error) {
+	local, err := time.LoadLocation("Asia/Shanghai") //设置时区
+	if err != nil {
+		return 0, err
+	}
+	tt, err := time.ParseInLocation(layout, timeStr, local)
+	if err != nil {
+		return 0, err
+	}
+	timeUnix := tt.Unix()
+	return timeUnix, nil
+}
+
