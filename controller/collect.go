@@ -13,6 +13,7 @@ import (
 	"github.com/wangyi/dyGin/dao/mysql"
 	"github.com/wangyi/dyGin/model"
 	"github.com/wangyi/dyGin/util"
+	"net/http"
 	"strconv"
 	"time"
 )
@@ -38,6 +39,13 @@ func UploadInformation(context *gin.Context) {
 		mysql.DB.CreateTable(&model.Collect{})
 	}
 
+	check := model.Collect{}
+	mysql.DB.Where("dy_number=?", dyNumber).Find(&check)
+	if check.ID != 0 {
+		util.JsonWrite(context, -101,nil, "不要重复添加")
+		return
+	}
+
 	insertData := model.Collect{}
 	insertData.UseUser = usename
 	insertData.Age = age
@@ -51,7 +59,7 @@ func UploadInformation(context *gin.Context) {
 	insertData.Sign = sign
 	insertData.Sex = sex
 	insertData.UpdatedAt = time.Now().Format("2006-01-02 15:04:05")
-	insertData.UpdatedAt = time.Now().Format("2006-01-02 15:04:05")
+	insertData.CreatedAt = time.Now().Format("2006-01-02 15:04:05")
 	result := mysql.DB.Save(&insertData).Error
 	if result != nil {
 		util.JsonWrite(context, -101, result.Error(), "插入失败")
@@ -59,4 +67,42 @@ func UploadInformation(context *gin.Context) {
 	}
 	util.JsonWrite(context, 200, nil, "插入成功")
 
+}
+
+
+//获取采集数据的资料
+
+/**
+  获取 抖音所有的 链接查询
+*/
+func GetCollectInformation(context *gin.Context) {
+	page, _ := strconv.Atoi(context.Query("page"))
+	limit, _ := strconv.Atoi(context.Query("limit"))
+	Db := mysql.DB
+	DB2 := mysql.DB
+	var total int = 0
+	links := make([]model.Collect, 0)
+	if status, isExist := context.GetQuery("status"); isExist == true {
+		status, _ := strconv.Atoi(status)
+		Db = Db.Where("status=?", status)
+		DB2 = DB2.Model(links).Where("status=?", status)
+	}
+	if kind, isExist := context.GetQuery("type"); isExist == true {
+		kind, _ := strconv.Atoi(kind)
+		Db = Db.Where("type=?", kind)
+		DB2 = DB2.Model(links).Where("type=?", kind)
+	}
+
+	Db.Limit(limit).Offset((page - 1) * limit).Order("updated_at desc")
+	DB2.Count(&total)
+	if err := Db.Find(&links).Error; err != nil {
+		util.JsonWrite(context, -101, nil, err.Error())
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{
+		"code":   1,
+		"count":  total,
+		"result": links,
+	})
+	return
 }

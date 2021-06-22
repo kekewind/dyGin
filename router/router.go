@@ -28,20 +28,13 @@ func Setup() *gin.Engine {
 	//GetOneLink
 	r.GET("/link/GetOneLink", controller.GetOneLink)
 
-
-
 	//脚本获取版本号
 	r.GET("/config/GetVersion", controller.GetVersion)
 
 	//上传采集数据 UploadInformation
 	r.GET("/collect/UploadInformation", controller.UploadInformation)
-
-
-
-
-
-
-
+	//获取采集的资料了 GetCollectInformation
+	r.GET("/collect/GetCollectInformation", controller.GetCollectInformation)
 	r.Run(fmt.Sprintf(":%d", viper.GetInt("app.port")))
 	return r
 }
