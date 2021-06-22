@@ -28,7 +28,6 @@
   <component name="ChangeListManager">
     <list default="true" id="27eebe83-55be-49cb-879f-34c35285f6a1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/collect.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/collect.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

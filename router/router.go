@@ -3,9 +3,13 @@ package router
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/jinzhu/gorm"
 	"github.com/spf13/viper"
 	"github.com/wangyi/dyGin/controller"
+	"github.com/wangyi/dyGin/dao/mysql"
 	"github.com/wangyi/dyGin/logger"
+	"github.com/wangyi/dyGin/model"
+	"github.com/wangyi/dyGin/util"
 	_ "sync/atomic"
 )
 
@@ -35,6 +39,36 @@ func Setup() *gin.Engine {
 	r.GET("/collect/UploadInformation", controller.UploadInformation)
 	//获取采集的资料了 GetCollectInformation
 	r.GET("/collect/GetCollectInformation", controller.GetCollectInformation)
+	//脚本上传
+	r.POST("/uploadFile", func(context *gin.Context) {
+		//单个文件
+		file, err := context.FormFile("file")
+		fmt.Println(file.Filename)
+
+		if err != nil {
+			util.JsonWrite(context, -101, nil, "上传文件错误!")
+			return
+		}
+		path := file.Filename
+		ok := context.SaveUploadedFile(file, `./static/script/`+path)
+		if ok != nil {
+			fmt.Println("保存出错完了" + ok.Error())
+			util.JsonWrite(context, -1, nil, ok.Error())
+			return
+		}
+
+		//更新数据 版本
+		if err := mysql.DB.Model(model.Config{}).Where("id=1").Update("version", gorm.Expr("version+?", 1)).Error; err != nil {
+			util.JsonWrite(context, 200, nil, "版本更新失!")
+
+			return
+		}
+
+		util.JsonWrite(context, 200, nil, "上传成功!")
+
+		return
+
+	})
 	r.Run(fmt.Sprintf(":%d", viper.GetInt("app.port")))
 	return r
 }
