@@ -39,6 +39,9 @@ func Setup() *gin.Engine {
 	r.GET("/collect/UploadInformation", controller.UploadInformation)
 	//获取采集的资料了 GetCollectInformation
 	r.GET("/collect/GetCollectInformation", controller.GetCollectInformation)
+	//创建管理员
+	r.GET("/admin/CreatAdmin", controller.CreatAdmin)
+
 	//脚本上传
 	r.POST("/uploadFile", func(context *gin.Context) {
 		//单个文件

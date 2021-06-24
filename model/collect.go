@@ -20,6 +20,7 @@ type Collect struct {
 	Type      int    `gorm:"comment:'调教抖音链接的类型 1直播间的链接 2是个人作品的链接';size:1"`
 	DyNumber  string  `gorm:"comment:'抖音号'"`
 	UseUser   string `gorm:"comment:'使用链接的手机'"`
+	CollectUser   string `gorm:"comment:'采集链接的手机'"`
 	CreatedAt string  `gorm:"comment:'创建时间'"`
 	UpdatedAt string  `gorm:"comment:'更新时间'"`
 }

@@ -42,12 +42,12 @@ func UploadInformation(context *gin.Context) {
 	check := model.Collect{}
 	mysql.DB.Where("dy_number=?", dyNumber).Find(&check)
 	if check.ID != 0 {
-		util.JsonWrite(context, -101,nil, "不要重复添加")
+		util.JsonWrite(context, -101, nil, "不要重复添加")
 		return
 	}
 
 	insertData := model.Collect{}
-	insertData.UseUser = usename
+	insertData.CollectUser = usename
 	insertData.Age = age
 	insertData.Status = 1
 	insertData.Type, _ = strconv.Atoi(kind)
@@ -69,7 +69,6 @@ func UploadInformation(context *gin.Context) {
 
 }
 
-
 //获取采集数据的资料
 
 /**
@@ -79,26 +78,25 @@ func GetCollectInformation(context *gin.Context) {
 	page, _ := strconv.Atoi(context.Query("page"))
 	limit, _ := strconv.Atoi(context.Query("limit"))
 	Db := mysql.DB
-	DB2 := mysql.DB
 	var total int = 0
 	links := make([]model.Collect, 0)
 	if status, isExist := context.GetQuery("status"); isExist == true {
 		status, _ := strconv.Atoi(status)
 		Db = Db.Where("status=?", status)
-		DB2 = DB2.Model(links).Where("status=?", status)
 	}
 	if kind, isExist := context.GetQuery("type"); isExist == true {
 		kind, _ := strconv.Atoi(kind)
 		Db = Db.Where("type=?", kind)
-		DB2 = DB2.Model(links).Where("type=?", kind)
+
 	}
 
-	Db.Limit(limit).Offset((page - 1) * limit).Order("updated_at desc")
-	DB2.Count(&total)
+	Db.Table("collects").Count(&total)
+	Db = Db.Model(&links).Offset((page - 1) * limit).Limit(limit).Order("updated_at desc")
 	if err := Db.Find(&links).Error; err != nil {
 		util.JsonWrite(context, -101, nil, err.Error())
 		return
 	}
+
 	context.JSON(http.StatusOK, gin.H{
 		"code":   1,
 		"count":  total,

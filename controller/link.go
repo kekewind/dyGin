@@ -111,22 +111,20 @@ func GetLinksList(context *gin.Context) {
 	page, _ := strconv.Atoi(context.Query("page"))
 	limit, _ := strconv.Atoi(context.Query("limit"))
 	Db := mysql.DB
-	DB2 := mysql.DB
 	var total int = 0
 	links := make([]model.Link, 0)
 	if status, isExist := context.GetQuery("status"); isExist == true {
 		status, _ := strconv.Atoi(status)
 		Db = Db.Where("status=?", status)
-		DB2 = DB2.Model(links).Where("status=?", status)
 	}
 	if kind, isExist := context.GetQuery("type"); isExist == true {
 		kind, _ := strconv.Atoi(kind)
 		Db = Db.Where("type=?", kind)
-		DB2 = DB2.Model(links).Where("type=?", kind)
 	}
 
-	Db.Limit(limit).Offset((page - 1) * limit).Order("updated_at desc")
-	DB2.Count(&total)
+	Db.Table("links").Count(&total)
+	Db = Db.Model(&links).Offset((page - 1) * limit).Limit(limit).Order("updated_at desc")
+
 	if err := Db.Find(&links).Error; err != nil {
 		util.JsonWrite(context, -101, nil, err.Error())
 		return
@@ -157,14 +155,14 @@ func GetOneLink(context *gin.Context) {
 		//吧这条链接 改成已经使用
 		fmt.Println("链接已经使用了!!!")
 		updateData := model.Link{
-			Status:    3,
+			Status: 3,
 			//UpdatedAt: time.Now().Unix(),
 		}
 		mysql.DB.Model(&model.Link{}).Where("id=?", one.ID).Updates(&updateData)
 	}
 
 	//获取一条新的链
-	two:=model.Link{}
+	two := model.Link{}
 	mysql.DB.Where("status=1").First(&two)
 
 	//链接用完了
@@ -173,10 +171,9 @@ func GetOneLink(context *gin.Context) {
 		return
 	}
 
-
 	updateData := model.Link{
-		UseUser:   username,
-		Status:    2,
+		UseUser: username,
+		Status:  2,
 		//UpdatedAt: time.Now().Unix(),
 	}
 	//

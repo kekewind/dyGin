@@ -37,6 +37,8 @@ func Init() error {
 	//DB.LogMode(true)
 	//数据迁移
 	DB.AutoMigrate(&model.Link{})
+	DB.AutoMigrate(&model.Collect{})
+	DB.AutoMigrate(&model.Admin{})
 	return err
 
 }
