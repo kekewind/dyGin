@@ -104,3 +104,35 @@ func GetCollectInformation(context *gin.Context) {
 	})
 	return
 }
+
+/**
+  获取单挑抖音号
+*/
+func GetDyOneInformation(context *gin.Context) {
+
+	username := context.Query("username")
+	collect := model.Collect{}
+	kinds := context.Query("type")
+
+	err := mysql.DB.Where("status=1").Where("type=?", kinds).First(&collect).Error
+	if err != nil {
+		util.JsonWrite(context, -101, nil, "获取失败")
+		return
+	}
+
+	//更新数据
+	updateData := model.Collect{
+		Status:  2,
+		UseUser: username,
+	}
+
+	err = mysql.DB.Model(&model.Collect{}).Where("id=?", collect.ID).Update(&updateData).Error
+	if err != nil {
+		util.JsonWrite(context, -101, nil, "获取失败")
+		return
+
+	}
+
+	util.JsonWrite(context, 200, nil, collect.DyNumber)
+
+}

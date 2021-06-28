@@ -28,7 +28,6 @@ func GetVersion(context *gin.Context) {
 		insert := model.Config{}
 		insert.Version = 1
 		mysql.DB.Save(&insert)
-
 	}
 	config := model.Config{}
 	result := mysql.DB.Where("id=1").First(&config).Error

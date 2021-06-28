@@ -41,6 +41,10 @@ func Setup() *gin.Engine {
 	r.GET("/collect/GetCollectInformation", controller.GetCollectInformation)
 	//创建管理员
 	r.GET("/admin/CreatAdmin", controller.CreatAdmin)
+	//脚本获取 一个抖音号  GetDyOneInformation
+	r.GET("/collect/GetDyOneInformation", controller.GetDyOneInformation)
+	//GetPhoneList 获取手机列表
+	r.GET("/phone/GetPhoneList", controller.GetPhoneList)
 
 	//脚本上传
 	r.POST("/uploadFile", func(context *gin.Context) {

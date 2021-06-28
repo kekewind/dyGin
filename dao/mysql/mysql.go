@@ -39,10 +39,25 @@ func Init() error {
 	DB.AutoMigrate(&model.Link{})
 	DB.AutoMigrate(&model.Collect{})
 	DB.AutoMigrate(&model.Admin{})
+	DB.AutoMigrate(&model.Phone{})
+	CheckIsExistModel(&model.Phone{})
 	return err
 
 }
 
 func Close() {
 	defer DB.Close()
+}
+
+//检查数据是否存在不存在 自己创建一个
+func CheckIsExistModel(values ...interface{}) {
+	if DB.HasTable(values) {
+		fmt.Println(values)
+	} else {
+		fmt.Println("数据不存在,所以我要先创建数据库")
+		DB.CreateTable(values)
+		insert := model.Config{}
+		insert.Version = 1
+		DB.Save(&insert)
+	}
 }

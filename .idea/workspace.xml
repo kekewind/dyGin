@@ -27,13 +27,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27eebe83-55be-49cb-879f-34c35285f6a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/model/admin.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/controller/phone.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/phone.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/admin.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/admin.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/collect.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/collect.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/link.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/link.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dao/mysql/mysql.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/mysql.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collect.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/collect.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
