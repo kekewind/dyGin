@@ -45,7 +45,10 @@ func Setup() *gin.Engine {
 	r.GET("/collect/GetDyOneInformation", controller.GetDyOneInformation)
 	//GetPhoneList 获取手机列表
 	r.GET("/phone/GetPhoneList", controller.GetPhoneList)
-
+	//脚本 获取自己的 配置 GetSelfConfig
+	r.GET("/phone/GetSelfConfig", controller.GetSelfConfig)
+	//管理员修改 手机列表的 运行种类  SetAllOrOneTaskTypeValue
+	r.GET("/phone/SetAllOrOneTaskTypeValue", controller.SetAllOrOneTaskTypeValue)
 	//脚本上传
 	r.POST("/uploadFile", func(context *gin.Context) {
 		//单个文件

@@ -27,12 +27,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27eebe83-55be-49cb-879f-34c35285f6a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controller/phone.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/phone.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/collect.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/collect.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/mysql/mysql.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/mysql.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/phone.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/phone.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/phone.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/phone.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -144,5 +141,16 @@
     </state>
     <state x="1109" y="374" width="671" height="676" key="search.everywhere.popup/50.25.1630.1025@50.25.1630.1025" timestamp="1624214924459" />
     <state x="1109" y="374" width="670" height="676" key="search.everywhere.popup/51.25.1629.1025@51.25.1629.1025" timestamp="1624207023037" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/controller/collect.go</url>
+          <line>76</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
