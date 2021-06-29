@@ -68,14 +68,15 @@ func GetSelfConfig(context *gin.Context) {
 			util.JsonWrite(context, -101, nil, "新增设备失败")
 			return
 		}
-		util.JsonWrite(context, 200, phone, "新增设备成功")
+		util.JsonWrite(context, 200, addPhones, "新增设备成功")
+		return
 	}
 	util.JsonWrite(context, 200, phone, "获取成功")
 	return
 
 }
 
-//管理员修改脚本的运行
+//管理员修改脚本的运行 pc
 func SetAllOrOneTaskTypeValue(context *gin.Context) {
 	kinds, _ := strconv.Atoi(context.Query("task_type"))
 	ids := strings.Split(context.Query("ids"), "@")
@@ -84,10 +85,47 @@ func SetAllOrOneTaskTypeValue(context *gin.Context) {
 			Updated:  time.Now().Unix(),
 			TaskType: kinds,
 		}
-		mysql.DB.Where("id=?", id).Update(&updateDate)
+		mysql.DB.Model(&model.Phone{}).Where("id=?", id).Update(&updateDate)
+
 	}
 
 	util.JsonWrite(context, 200, nil, "修改成功")
 	return
 
+}
+
+/**
+ * @Description:
+ * @param context
+ * //脚本修改 修改运行状态
+ */
+func SetOneConfigStatus(context *gin.Context) {
+	nickname := context.Query("nickname")
+	Date := model.Phone{
+		Updated: time.Now().Unix(),
+		Status:  2,
+	}
+	err := mysql.DB.Model(&model.Phone{}).Where("nickname=?", nickname).Update(&Date).Error
+	if err != nil {
+		util.JsonWrite(context, -101, nil, "修改失败")
+		print(err)
+		return
+	}
+	util.JsonWrite(context, 200, nil, "修改成功")
+	return
+}
+
+/**
+ * @Description:
+ * @param context  删除 设备
+ */
+func DeleteOneDevice(context *gin.Context) {
+	id := context.Query("id")
+	err := mysql.DB.Delete(&model.Phone{}, id).Error
+	if err != nil {
+		util.JsonWrite(context, -101, nil, "删除失败")
+		return
+	}
+	util.JsonWrite(context, -101, nil, "删除失败")
+	return
 }

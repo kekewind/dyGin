@@ -50,7 +50,7 @@ if (files.exists(path)) {
 
 }
 
-
+域名 = "172.81.248.168:2345"
 
 
 
@@ -714,12 +714,17 @@ function 关注通讯判断是否到底() {
 
 
 function 判断直播间观众是否到底() {
-    if (id("user_name").exists()) {
-        var a = id("user_name").find()
-        return a[a.length - 2].text()
-    } else {
+    try {
+        if (id("user_name").exists()) {
+            var a = id("user_name").find.find()
+            return a[a.length - 2].text()
+        } else {
+            return ""
+        }
+    } catch (error) {
         return ""
     }
+
 
 }
 
@@ -894,37 +899,464 @@ function 直播间关注() {
 
 
 
+function 直播间粉丝采集数据上传(年龄, 地址, 获赞, 关注, 粉丝, 个性签名, 性别, 抖音号) {
 
+    var host = "http://" + 域名 + "/collect/UploadInformation?age=" + 年龄 + "&address=" + 地址 + "&like=" + 获赞 + "&following=" + 关注 + "&follows=" + 粉丝 + "&sign=" + 个性签名 + "&sex=" + 性别 + "&dyNumber=" + 抖音号 + "&username=" + nickname + "&type=1"
 
-
-function 进入直播间() {
-
-        
-
-
-
+    log(host)
+    try {
+        var res = http.get(host);
+    } catch (error) {
+        console.log(" 直播间粉丝采集数据上传  异常抛出:" + error)
+    }
 
 }
+
+
+
+
+
+function 进入采集用户列表() {
+    var time1 = timest()  //初始时间
+    var time2 = timest()
+    var 年龄 = ""
+    var 地址 = ""
+    var 获赞 = ""
+    var 关注 = ""
+    var 粉丝 = ""
+    var 个性签名 = ""
+    var 性别 = ""
+    var 抖音号 = ""
+    var 是否点击了返回 = false
+    var 是否采集 = false
+    while (true) {
+        try {
+            if (timest() - time1 > 60) {  //两分钟的超时
+                toast("超时......")
+                break
+            } else {
+                if (text("举报").exists()) {
+                    if (是否采集) {
+                        if (是否点击了返回) {
+                            if (timest() - time2 > 10) {
+                                是否点击了返回 = false
+                            } else {
+                                toast("等待返回.....")
+                            }
+                        } else {
+                            back()
+                            是否采集 = false
+                            是否点击了返回 = true
+                        }
+                    } else {
+                        //获取性别
+                        if (id("cvd").exists()) {
+                            性别 = id("cvd").findOne().desc()
+                            //点击主页  无性别不点
+                            toast("点击主页.....")
+                            text("主页").findOne().click()
+                        } else {
+                            //没有性别  点击返回
+                            if (是否点击了返回) {
+                                if (timest() - time2 > 10) {
+                                    是否点击了返回 = false
+                                } else {
+                                    toast("等待返回.....")
+                                }
+                            } else {
+                                back()
+                                是否点击了返回 = true
+                            }
+                        }
+
+                    }
+                } else if (id("ix5").exists()) {
+                    log("采集资料界面.................")
+                    var a = className("android.widget.TextView").find()
+                    for (var i = 0; i < a.length; i++) {
+                        try {
+                            // log(a[i].text())
+                            if (a[i].text() == "获赞") {
+                                if (i == 0) {
+                                    //磨板2
+                                    获赞 = a[1].text()
+                                    关注 = a[5].text()
+                                    粉丝 = a[3].text()
+                                    抖音号 = a[7].text()
+                                    if (判断控件性别属性(a[8].text())) {
+                                        年龄 = a[8].text()
+                                        地址 = a[9].text()
+                                    } else {
+                                        个性签名 = a[8].text()
+                                        if (判断控件性别属性(a[9].text())) {
+                                            年龄 = a[9].text()
+                                            地址 = a[10].text()
+                                        }
+                                    }
+
+                                } else {
+                                    //磨板2
+                                    if (判断控件性别属性(a[3].text())) {
+                                        //说明了没有  个人签名
+                                        年龄 = a[3].text()
+                                        if (i > 5) {
+                                            地址 = a[4].text()
+                                        }
+                                    } else {
+                                        个性签名 = a[3].text()
+                                        年龄 = a[4].text()
+                                        //判断是否有 家乡地址
+                                        if (i < 7) { //没有家乡
+                                        } else {
+                                            //有家乡地址
+                                            地址 = a[5].text()
+                                        }
+                                    }
+                                    抖音号 = a[2].text()
+                                    获赞 = a[i - 1].text()
+                                    关注 = a[i + 1].text()
+                                    粉丝 = a[i + 3].text()
+                                   
+
+                                }
+                            }
+
+                        } catch (error) {
+                            toast("文本读取异常:" + error)
+                            log("文本读取异常:" + error)
+
+                        }
+
+                    }
+
+                    抖音号 = 抖音号.slice(4)
+                    log("抖音号:" + 抖音号)
+                    直播间粉丝采集数据上传(年龄, 地址, 获赞, 关注, 粉丝, 个性签名, 性别, 抖音号)
+                    //采集的数据上传 
+                    if (id("back_btn").exists()) {
+                        toast("点击返回.......")
+                        id("back_btn").findOne().click()
+                    } else {
+                        toast("点击返回.......")
+                        click(80, 140)
+                    }
+
+                    是否采集 = true
+                    sleep(2000)
+                } else if (text("帮助").exists()) {
+                    toast("点错了,准备返回")
+                    click(80, 170)
+                } else if (id("user_avatar").exists()) {
+                    toast("返回成功")
+                    break;
+                } else {
+                    toast("进入采集用户列表---位置界面")
+
+                }
+            }
+            sleep(2000)
+
+        } catch (error) {
+            toast("方法 进入采集用户列表() 异常抛出:" + error)
+            sleep(2000)
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function 遍历观众数量() {
+    if (id("user_avatar").exists()) {
+        var list = id("user_avatar").find()
+        if (list.length == 0) {
+            toast("需要遍历的关注的控件不存在")
+        }
+        for (var i = 0; i < list.length; i++) {
+            var tv = list[i];
+            var X = 180
+            var Y = tv.bounds().centerY()
+            if (Y > 0 && Y < 1696) {
+                log(X, Y)
+                click(X, Y)
+                进入采集用户列表()
+            }
+            sleep(2000)
+        }
+
+    } else {
+        toast("没有找到头像控件,准备滑动......")
+
+    }
+}
+
+
+
+
+
+
+
+
+function 判断控件性别属性(sex) {
+    if (sex.length > 3) {
+        return false;
+    } else {
+        if (sex.indexOf("男") != -1 && sex.length == 1) {
+            return true
+        } else if (sex.indexOf("女") != -1 && sex.length == 1) {
+
+            return true
+        } else if (sex.indexOf("岁") != -1 && sex.length == 3) {
+            return true
+        }
+    }
+    return false
+}
+
+
+
+
+
+
+function 直播已经结束() {
+
+    if (text("直播已结束").exists()) {
+        return true
+    }
+
+    return false
+}
+
+function 获取直播间roomId() {
+    host = 'http://' + 域名 + '/link/GetOneLink?username=' + nickname + "&type=1"  // type=1 直播间id
+    for (var i = 0; i < 10000000; i++) {
+        try {
+            var res = http.get(host);
+            if (res.statusCode != 200) {
+                toast("请求失败: " + res.statusCode + " " + res.statusMessage);
+            } else {
+                var weather = res.body.json()
+                if (weather) {
+                    log(weather)
+                    if (weather.code == 200) {
+                        toast("获取到id:" + weather.msg);
+                        全局抖音ID = weather.msg
+                        app.startActivity({
+                            data: "snssdk1128://live?room_id=" + weather.msg,
+                        });
+                        break;
+                    } else {
+                        toast(weather.msg)
+                    }
+                }
+
+            }
+            sleep(2000)
+
+        } catch (error) {
+            toast("异常退出!!!!");
+
+        }
+    }
+}
+
+
+
+
+// 遍历观众数量()
+
 
 
 
 /***
  * 
  * @version 16.1.0
+ * 
+ * 服务器获取连接
  */
-
 
 function 直播界面采集数据() {
     var hint = ""
+    var 是否已经获取连接 = false
+    var 现在时间戳 = timest()
     while (true) {
-        if (hint = "") {
+        if (hint == "") {
+            if (是否已经获取连接) {
+                if (直播已经结束()) {
+                    // 获取直播间roomId()
+                    toast("播主已经下播了,切换直播间")
+                    是否已经获取连接 = false
+                } else if (id("f2=").exists()) {
+                    toast("进入直播间成功...准备采集....")
+                    hint = "采集"
+                } else {
+                    //给一个定时
+                    if (timest() - 现在时间戳 > 30) {
+                        是否已经获取连接 = false
+                    } else {
+                        toast("未知界面..........")
+                        sleep(1000)
+                    }
+                }
+
+            } else {
+                现在时间戳 = timest()
+                获取直播间roomId()
+                是否已经获取连接 = true
+            }
 
 
+        } else if (hint == "采集") {
+            if (text("说点什么...").exists()) {  //直播间首页
+                toast("直播间首页,准备点击在线关注数,准备采集")
+                是否已经获取连接 = false
+                click(900, 120)
+            } else if (id("user_avatar").exists()) {
+                if (遍历观众数量()) {
+
+                } else {
+                    hint = "滑动"
+                }
+
+            } else {
+                //这里进行 进行超时 判断
+                toast("未知界面,hint=采集")
+
+            }
+
+
+        } else if (hint == "滑动") {
+            var 最后一个观众名字 = 判断直播间观众是否到底()
+            toast("准备滑动.....")
+            swipe(160, 1633, 160, 351, 856)
+            if (判断直播间观众是否到底() == 最后一个观众名字) {
+                log("到底了................")
+                hint = ""
+            } else {
+                hint = "采集"
+            }
 
         } else {
-
+            toast("hint 位置属性")
 
         }
         sleep(2000)
     }
 }
+
+
+/***
+ * 手动滑获取  直播间采集
+ * 
+ */
+
+
+function 直播间采集数据手动滑动() {
+    var 是否滑动 = false
+    var 最后一个观众名字 = ""
+    var 现在时间戳 = timest()
+    var 是否点击观众 = false
+    hint = "采集"
+    while (true) {
+        if (hint == "采集") {
+            if (text("说点什么...").exists()) {  //直播间首页
+                if (是否点击观众) {
+                    if (timest() - 现在时间戳 > 30) {
+                        toast("点击观众列表超时......")
+                        是否点击观众 = false
+                        hint = "切换"
+                    } else {
+                        toast("等待进入观众列表")
+                    }
+                } else {
+                    现在时间戳 = timest()
+                    toast("直播间首页,准备点击在线关注数,准备采集")
+                    是否已经获取连接 = false
+                    click(900, 120)
+                    是否点击观众 = true
+                }
+                
+            } else if (text("检测到更新").exists()) {
+                toast("关闭更新,以后再说......")
+                text("以后再说").findOne().click()
+                现在时间戳 = timest()
+            } else if (text("推荐").exists()) {
+                toast("准备点击直播...")
+                id("i17").findOne().click()
+                现在时间戳 = timest()
+            } else if (id("user_avatar").exists()) {
+                if (遍历观众数量()) {
+                    现在时间戳 = timest()
+                } else {
+                    hint = "滑动"
+                }
+            } else {
+                //这里进行 进行超时 判断
+                if (timest() - 现在时间戳 > 60) {
+                    toast("hint=采集超时准备重启....")
+                    hint = "重启"
+                } else {
+                    toast("未知界面,hint=采集")
+
+                }
+            }
+        } else if (hint == "切换") {
+            toast("准备切换下一个直播")
+            click(500, 300)
+            sleep(2000)
+            swipe(160, 1633, 160, 351, 856)
+            sleep(2000)
+            hint = "采集"
+        } else if (hint == "滑动") {
+            var 最后一个观众名字 = 判断直播间观众是否到底()
+            toast("准备滑动.....")
+            swipe(160, 1633, 160, 351, 856)
+            if (判断直播间观众是否到底() == 最后一个观众名字) {
+                log("到底了................")
+                hint = "切换"
+            } else {
+                hint = "采集"
+            }
+
+        } else if (hint == "重启") {
+            关闭应用("com.ss.android.ugc.aweme")
+            sleep(3000)
+            launch("com.ss.android.ugc.aweme");
+            toast("开启抖音")
+            sleep(3000)
+            hint = "采集"
+        } else {
+
+
+
+            toast("hint 位置属性")
+
+        }
+        sleep(2000)
+    }
+
+
+}
+
+
+
+
+
+
+直播间采集数据手动滑动()
+
+
+
+
+
+
+

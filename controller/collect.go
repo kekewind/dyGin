@@ -8,7 +8,6 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/wangyi/dyGin/dao/mysql"
 	"github.com/wangyi/dyGin/model"
@@ -31,13 +30,13 @@ func UploadInformation(context *gin.Context) {
 	dyNumber := context.Query("dyNumber")
 	usename := context.Query("username")
 	kind := context.Query("type")
-	if mysql.DB.HasTable(&model.Collect{}) {
-		fmt.Println("数据库已经存在了!")
-		mysql.DB.AutoMigrate(&model.Collect{})
-	} else {
-		fmt.Println("数据不存在,所以我要先创建数据库")
-		mysql.DB.CreateTable(&model.Collect{})
-	}
+	//if mysql.DB.HasTable(&model.Collect{}) {
+	//	fmt.Println("数据库已经存在了!")
+	//	mysql.DB.AutoMigrate(&model.Collect{})
+	//} else {
+	//	fmt.Println("数据不存在,所以我要先创建数据库")
+	//	mysql.DB.CreateTable(&model.Collect{})
+	//}
 
 	check := model.Collect{}
 	mysql.DB.Where("dy_number=?", dyNumber).Find(&check)

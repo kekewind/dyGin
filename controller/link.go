@@ -41,13 +41,13 @@ func AnalysisLink(context *gin.Context) {
 
 	arrayLinks := strings.Split(link, "@")
 	fmt.Println(len(arrayLinks))
-	if mysql.DB.HasTable(&model.Link{}) {
-		fmt.Println("数据库已经存在了!")
-		mysql.DB.AutoMigrate(&model.Link{})
-	} else {
-		fmt.Println("数据不存在,所以我要先创建数据库")
-		mysql.DB.CreateTable(&model.Link{})
-	}
+	//if mysql.DB.HasTable(&model.Link{}) {
+	//	fmt.Println("数据库已经存在了!")
+	//	mysql.DB.AutoMigrate(&model.Link{})
+	//} else {
+	//	fmt.Println("数据不存在,所以我要先创建数据库")
+	//	mysql.DB.CreateTable(&model.Link{})
+	//}
 	for _, value := range arrayLinks {
 		RoomId := GetDyId(value)
 		//解析正则表达式，如果成功返回解释器

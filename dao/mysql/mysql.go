@@ -36,11 +36,19 @@ func Init() error {
 	//日志
 	//DB.LogMode(true)
 	//数据迁移
-	DB.AutoMigrate(&model.Link{})
-	DB.AutoMigrate(&model.Collect{})
-	DB.AutoMigrate(&model.Admin{})
-	DB.AutoMigrate(&model.Phone{})
-	CheckIsExistModel(&model.Phone{})
+	//DB.AutoMigrate(&model.Link{})
+	//DB.AutoMigrate(&model.Collect{})
+	//DB.AutoMigrate(&model.Admin{})
+	//DB.AutoMigrate(&model.Phone{})
+
+	CheckIsExistModelCollect()
+	CheckIsExistModelLink()
+	CheckIsExistModelPhone()
+	CheckIsExistModelConfig()
+
+	//CheckIsExistModel(&model.Link{})
+	//CheckIsExistModel(&model.Admin{})
+	//CheckIsExistModel(&model.Collect{})
 	return err
 
 }
@@ -50,14 +58,40 @@ func Close() {
 }
 
 //检查数据是否存在不存在 自己创建一个
-func CheckIsExistModel(values ...interface{}) {
-	if DB.HasTable(values) {
-		fmt.Println(values)
+func CheckIsExistModelCollect() {
+	if DB.HasTable(&model.Collect{}) {
+		fmt.Println("数据库已经存在了!")
+		DB.AutoMigrate(&model.Collect{})
 	} else {
 		fmt.Println("数据不存在,所以我要先创建数据库")
-		DB.CreateTable(values)
-		insert := model.Config{}
-		insert.Version = 1
-		DB.Save(&insert)
+		DB.CreateTable(&model.Collect{})
+	}
+}
+
+func CheckIsExistModelLink() {
+	if DB.HasTable(&model.Link{}) {
+		fmt.Println("数据库已经存在了!")
+		DB.AutoMigrate(&model.Link{})
+	} else {
+		fmt.Println("数据不存在,所以我要先创建数据库")
+		DB.CreateTable(&model.Link{})
+	}
+}
+func CheckIsExistModelPhone() {
+	if DB.HasTable(&model.Phone{}) {
+		fmt.Println("数据库已经存在了!")
+		DB.AutoMigrate(&model.Phone{})
+	} else {
+		fmt.Println("数据不存在,所以我要先创建数据库")
+		DB.CreateTable(&model.Phone{})
+	}
+}
+func CheckIsExistModelConfig() {
+	if DB.HasTable(&model.Config{}) {
+		fmt.Println("数据库已经存在了!")
+		DB.AutoMigrate(&model.Config{})
+	} else {
+		fmt.Println("数据不存在,所以我要先创建数据库")
+		DB.CreateTable(&model.Config{})
 	}
 }

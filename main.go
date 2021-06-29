@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"github.com/wangyi/dyGin/dao/mysql"
 	"github.com/wangyi/dyGin/logger"
+	"github.com/wangyi/dyGin/model"
 	"github.com/wangyi/dyGin/router"
 	"github.com/wangyi/dyGin/setting"
 	"go.uber.org/zap"
+	"time"
 )
 
 func main() {
@@ -28,11 +30,23 @@ func main() {
 
 	//链接数据库
 	if err := mysql.Init(); err != nil {
-	 	fmt.Println("mysql 链接失败,",err)
+		fmt.Println("mysql 链接失败,", err)
 		return
 	}
 
 	defer mysql.Close()
 
+	//进程 心跳 没30秒修改 数据设备的状态
+	go func() {
+		for true {
+			err := mysql.DB.Model(&model.Phone{}).Update("status", 1).Error
+			if err != nil {
+				println("进程检测心跳失败")
+			}
+			time.Sleep(time.Second * 30)
+		}
+	}()
+
 	router.Setup()
+
 }

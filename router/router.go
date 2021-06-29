@@ -49,12 +49,14 @@ func Setup() *gin.Engine {
 	r.GET("/phone/GetSelfConfig", controller.GetSelfConfig)
 	//管理员修改 手机列表的 运行种类  SetAllOrOneTaskTypeValue
 	r.GET("/phone/SetAllOrOneTaskTypeValue", controller.SetAllOrOneTaskTypeValue)
+	//脚本修改状态  SetOneConfigStatus
+	r.GET("/phone/SetOneConfigStatus", controller.SetOneConfigStatus)
+
 	//脚本上传
 	r.POST("/uploadFile", func(context *gin.Context) {
 		//单个文件
 		file, err := context.FormFile("file")
 		fmt.Println(file.Filename)
-
 		if err != nil {
 			util.JsonWrite(context, -101, nil, "上传文件错误!")
 			return
@@ -66,18 +68,13 @@ func Setup() *gin.Engine {
 			util.JsonWrite(context, -1, nil, ok.Error())
 			return
 		}
-
 		//更新数据 版本
 		if err := mysql.DB.Model(model.Config{}).Where("id=1").Update("version", gorm.Expr("version+?", 1)).Error; err != nil {
 			util.JsonWrite(context, 200, nil, "版本更新失!")
-
 			return
 		}
-
 		util.JsonWrite(context, 200, nil, "上传成功!")
-
 		return
-
 	})
 	r.Run(fmt.Sprintf(":%d", viper.GetInt("app.port")))
 	return r

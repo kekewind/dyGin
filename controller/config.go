@@ -19,16 +19,16 @@ import (
 //获取版本信息
 func GetVersion(context *gin.Context) {
 
-	if mysql.DB.HasTable(&model.Config{}) {
-		fmt.Println("数据库已经存在了!")
-		mysql.DB.AutoMigrate(&model.Config{})
-	} else {
-		fmt.Println("数据不存在,所以我要先创建数据库")
-		mysql.DB.CreateTable(&model.Config{})
-		insert := model.Config{}
-		insert.Version = 1
-		mysql.DB.Save(&insert)
-	}
+	//if mysql.DB.HasTable(&model.Config{}) {
+	//	fmt.Println("数据库已经存在了!")
+	//	mysql.DB.AutoMigrate(&model.Config{})
+	//} else {
+	//	fmt.Println("数据不存在,所以我要先创建数据库")
+	//	mysql.DB.CreateTable(&model.Config{})
+	//	insert := model.Config{}
+	//	insert.Version = 1
+	//	mysql.DB.Save(&insert)
+	//}
 	config := model.Config{}
 	result := mysql.DB.Where("id=1").First(&config).Error
 	if result != nil {

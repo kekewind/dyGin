@@ -28,9 +28,14 @@
   <component name="ChangeListManager">
     <list default="true" id="27eebe83-55be-49cb-879f-34c35285f6a1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/collect.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/collect.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/link.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/link.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/phone.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/phone.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/phone.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/phone.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/mysql/mysql.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/mysql.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/script/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/script/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +74,7 @@
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="fileTemplates" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -125,12 +130,13 @@
       <screen x="53" y="25" width="1627" height="1025" />
     </state>
     <state x="459" y="213" key="#SSH_Configurations/53.25.1627.1025@53.25.1627.1025" timestamp="1624199757490" />
-    <state x="496" y="252" key="SettingsEditor" timestamp="1624215531381">
-      <screen x="49" y="25" width="1631" height="1025" />
+    <state x="373" y="191" key="SettingsEditor" timestamp="1624958264980">
+      <screen x="53" y="25" width="1627" height="1025" />
     </state>
+    <state x="495" y="252" key="SettingsEditor/48.25.1632.1025@48.25.1632.1025" timestamp="1624887010817" />
     <state x="496" y="252" key="SettingsEditor/49.25.1631.1025@49.25.1631.1025" timestamp="1624215531381" />
     <state x="1" y="272" key="SettingsEditor/50.25.1630.1025@50.25.1630.1025" timestamp="1624215422699" />
-    <state x="376" y="173" key="SettingsEditor/53.25.1627.1025@53.25.1627.1025" timestamp="1624200110651" />
+    <state x="373" y="191" key="SettingsEditor/53.25.1627.1025@53.25.1627.1025" timestamp="1624958264980" />
     <state x="780" y="298" width="352" height="531" key="ftp.server.browser" timestamp="1624257260533">
       <screen x="50" y="25" width="1630" height="1025" />
     </state>
@@ -141,16 +147,5 @@
     </state>
     <state x="1109" y="374" width="671" height="676" key="search.everywhere.popup/50.25.1630.1025@50.25.1630.1025" timestamp="1624214924459" />
     <state x="1109" y="374" width="670" height="676" key="search.everywhere.popup/51.25.1629.1025@51.25.1629.1025" timestamp="1624207023037" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/controller/collect.go</url>
-          <line>76</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

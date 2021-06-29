@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>抖音管理后台登录界面</title>
+  <link rel="icon" href="favicon.ico" type="image/ico">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="css/style.min.css" rel="stylesheet">
+
+
+  <link href="css/waves.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="./css/message.css" media="all" />
+<style>
+.login-form{
+
+    width: 250px;
+    height: 180px;
+    margin-top: 20px;
+
+}
+.login-form .has-feedback {
+    position: relative;
+}
+.login-form .has-feedback .form-control {
+    padding-left: 36px;
+}
+.login-form .has-feedback .mdi {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    z-index: 4;
+    color: #dcdcdc;
+    display: block;
+    text-align: center;
+    pointer-events: none;
+}
+.login-form .has-feedback.row .mdi {
+    left: 15px;
+}
+.login-form .form-group:last-child,
+.login-right p:last-child {
+    margin-bottom: 0px;
+}
+.login-right {
+    background: #67b26f!important;
+    background: -moz-linear-gradient(45deg,#67b26f 0,#4ca2cd 100%)!important;
+    background: -webkit-linear-gradient(45deg,#67b26f 0,#4ca2cd 100%)!important;
+    background: linear-gradient(45deg,#67b26f 0,#4ca2cd 100%)!important;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#67b26f', endColorstr='#4ca2cd', GradientType=1 )!important;
+}
+.login-box {
+    max-width: 700px;
+}
+.login-right {
+    max-width: 50%;
+}
+</style>
+</head>
+  
+<body class="center-vh" style="background-image: url(images/login-bg-3.jpg); background-size: cover;">
+<div class="bg-translucent p-2">
+  <div class="flex-box bg-white login-box">
+    <div class="login-left p-5">
+      
+      <div class="text-center mb-3 d-sm-none">
+        <a href="index.html"> <img alt="light year admin" src="images/logo-sidebar.png"> </a>
+      </div>
+      <form  class="login-form">
+        <div class="form-group has-feedback">
+          <span class="mdi mdi-account" aria-hidden="true"></span>
+          <input type="text" class="form-control" id="ip_username" placeholder="用户名">
+        </div>
+
+        <div class="form-group has-feedback" style="margin-top: 20px;">
+          <span class="mdi mdi-lock" aria-hidden="true"></span>
+          <input type="password" class="form-control" id="ip_password" placeholder="密码">
+        </div>
+
+        <div class="form-group" >
+          <button class="btn btn-block btn-primary" id="loginBtn">立即登录</button>
+        </div>
+
+      </form>
+
+    </div>
+    <div class="login-right p-5 d-none d-sm-block">
+      <p class="mb-3"><img src="images/logo.png" class="m-b-md m-t-xs" alt="logo" style="margin-top: 10px;"/></p>
+      <p class="text-white" style="margin-top: 20px;">国内抖音管理系统是一个后台管理系统，基于tiktok管理后台二次开发。</p>
+      <p class="text-white align-self-end" style="margin-top: 20px;">Copyright © 2021. All right reserved</p>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<!-- <script type="text/javascript" src="./js/jquery-2.0.3.js"></script> -->
+
+<script type="text/javascript" src="./js/config.url.js"></script>
+<!-- 引入消息弹窗 -->
+<script type="text/javascript" src="./js/message.js"></script>
+
+
+<script type="text/javascript" src="./js/waves.js"></script>
+
+<script type="text/javascript">
+
+
+  Waves.init();
+  Waves.attach('.btn');
+
+  $(function(){
+
+    $("#loginBtn").click(function(){
+
+      initLoginClickEvent();
+
+
+      return false
+
+    })
+
+
+    $("#ip_username").keypress(function(event){
+      if(event.which === 13) {
+        //点击回车要执行的事件
+        // console.log("回车键点击了");
+        initLoginClickEvent();
+
+      }
+    })
+
+
+    $("#ip_password").keypress(function(event){
+      if(event.which === 13) {
+        //点击回车要执行的事件
+        // console.log("回车键点击了");
+        initLoginClickEvent();
+
+      }
+    })
+
+    //初始化点击登录事件
+    function initLoginClickEvent(){
+
+
+
+      var username = $("#ip_username").val();
+      var password = $("#ip_password").val();
+
+
+      // console.log(username,password);
+      //声明json格式的请求数据
+      // var requestdata = {"admin_name": username, "admin_password": password};
+
+
+      if(username == "admin" && password == "admin"){
+
+        var tokenCK  = "R42jjp6dbA8O7AUyDkitbArZmayCD47hS5by324324";
+
+        JsSetCookie('tokenMyb',tokenCK);
+
+
+        $.message({
+          message:"登录成功",
+          type: 'success',
+          showClose: true
+        });
+
+        setTimeout(function (){
+
+
+          window.location.href = "./index.html";
+
+
+        },300)
+
+      }else{
+
+        $.message({
+          message:"用户名或密码错误!",
+          type: 'error',
+          showClose: true
+        });
+
+        return false
+
+      }
+
+
+
+
+
+
+
+      // $.ajax({
+      //   url: global_requestloginAddress_js+"?username="+username+"&password="+password,
+      //   type: "GET",
+      //   dataType:"json",
+      //   success: function (resultJson) {
+      //
+      //     if (1 === resultJson.code) {
+      //       // alert("登录成功!");
+      //
+      //
+      //       // layer.msg("登录成功");
+      //       $.message({
+      //         message:"登录成功",
+      //         type: 'success',
+      //         showClose: true
+      //       });
+      //
+      //
+      //       setTimeout(function (){
+      //
+      //         var millisecond = new Date().getTime();
+      //         var expiresTime = new Date(millisecond + 10000000000000000000 * 1000 * 10000000000000000000);
+      //
+      //         localStorage.setItem("changeRefresh","true");
+      //         // console.log("设置localStorage"+localStorage.getItem("changeRefresh"));
+      //         var tokenCK  = "R42jjp6dbA8O7AUyDkitbArZmayCD47hS5by324324";
+      //         // var tokenCK  = resultJson.result.token;
+      //         //var date = new Date();
+      //         //date.setTime(date.getTime()+10*1000);//只能这么写，10表示10秒钟
+      //
+      //         //jquery 设置cookies方法
+      //         //$.cookie('token',resultJson.result.token,{expires: expiresTime});
+      //
+      //         //js设置cookies方法
+      //
+      //         JsSetCookie('tokenMyb',tokenCK);
+      //         //document.cookie = resultJson.result.token;
+      //         //document.cookie=tokenCK;
+      //
+      //
+      //         // console.log(document.cookie);
+      //         window.location.href = "./index.html";
+      //
+      //
+      //       },2000)
+      //
+      //
+      //     }else{
+      //
+      //
+      //       $.message({
+      //         message:resultJson.msg,
+      //         type: 'error',
+      //         showClose: true
+      //       });
+      //
+      //       //alert(resultJson.code);
+      //
+      //     }
+      //
+      //
+      //   },
+      //
+      //
+      // });
+
+
+
+    }
+
+    //设置CK方法
+    function JsSetCookie(name,value)//两个参数，一个是cookie名称，一个是值
+    {
+      var millisecond = new Date().getTime();
+      var expiresTime = new Date(millisecond + 60 * 1000 * 60 * 24 );
+      // var expiresTime = new Date(millisecond + 60 * 1000 * 60);
+
+
+      document.cookie = name + "="+ escape (value) + ";expires=" + expiresTime.toGMTString();
+      // document.cookie = name + "="+ escape (value) + ";expires=" + expiresTime.toGMTString();
+    }
+
+
+  })
+
+
+
+
+</script>
+
+
+</body>
+</html>
