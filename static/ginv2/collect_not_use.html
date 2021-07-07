@@ -25,6 +25,7 @@
 
 
 <link rel="stylesheet" href="./css/message.css" media="all" />
+<link rel="stylesheet" href="./js/bootstrap-table/extensions/page-jump-to/bootstrap-table-page-jump-to.scss">
 
 
 <style>
@@ -43,7 +44,11 @@
     /*    text-overflow:ellipsis;*/
     /*}*/
 
+    .nav-link:hover{
 
+        cursor:default
+
+    }
 
 </style>
 
@@ -66,15 +71,16 @@
 
           <form>
             <div class="row">
-                <div class="col-xs-8 col-sm-4 col-md-4 col-lg-2">
-                    <div class="form-group">
-                        <select class="form-control selectpicker" id="link_type" name="link_type"  data-style="btn-primary"  onchange="selectOnchang(this)">
-                            <option value="0" selected>请选择采集来源</option>
-                            <option value="1">直播间</option>
-                            <option value="2">个人作品</option>
-                        </select>
-                    </div>
-                </div>
+<!--                <div class="col-xs-8 col-sm-4 col-md-4 col-lg-2">-->
+<!--                    <div class="form-group">-->
+<!--                        <select class="form-control selectpicker" id="link_type" name="link_type"  data-style="btn-primary"  onchange="selectOnchang(this)">-->
+<!--                            <option value="0" selected>请选择采集来源</option>-->
+<!--                            <option value="1">直播间</option>-->
+<!--                            <option value="2">个人作品</option>-->
+<!--                            <option value="3">通讯录</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div class="col-xs-8 col-sm-4 col-md-4 col-lg-3">
 
@@ -114,10 +120,22 @@
 
 
         <div class="card-body">
+            <div class="col-lg-6">
+                <ul class="nav nav-pills nav-fill mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" aria-selected="true" id="zbjBtn">直播间</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" aria-selected="false" id="grzpBtn">个人作品</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" aria-selected="false" id="txlBtn">通讯录</a>
+                    </li>
+                </ul>
+            </div>
 
-          <div class="table-responsive">
-            <table class="table table-bordered" id="sampleTable">
-
+          <div class="table-responsive" style="margin-top:-46px">
+            <table class="table table-bordered" id="sampleTable" >
             </table>
           </div>
 
@@ -149,6 +167,7 @@
                             <select class="form-control addselectpicker" id="add_link_type" name="add_link_type">
                                 <option value="1" selected>直播间</option>
                                 <option value="2">个人作品</option>
+                                <option value="3">通讯录</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -202,6 +221,8 @@
 <link href="./js/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 <script src="./js/bootstrap-select-1.13.18/bootstrap-select.min.js"></script>
 
+
+<script src="./js/bootstrap-table/extensions/page-jump-to/bootstrap-table-page-jump-to.js"></script>
 
 <script type="text/javascript">
 
@@ -555,8 +576,8 @@ if(mybck == "" || mybck == null){
                   queryParams: oTableInit.queryParams,//传递参数（*）
                   sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
                   pageNumber:1,                       //初始化加载第一页，默认第一页
-                  pageSize: 15,                       //每页的记录行数（*）
-                  pageList: [15, 30, 50, 100,150],        //可供选择的每页的行数（*）
+                  pageSize: 10,                       //每页的记录行数（*）
+                  pageList: [10,15, 30, 50, 100,150,300,500],        //可供选择的每页的行数（*）
                   paginationPreText: '上一页',//指定分页条中上一页按钮的图标或文字,这里是<
                   paginationNextText: '下一页',//指定分页条中下一页按钮的图标或文字,这里是>
                   search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
@@ -571,6 +592,7 @@ if(mybck == "" || mybck == null){
                   showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
                   cardView: false,                    //是否显示详细视图
                   detailView: false,                   //是否显示父子表
+                  showJumpTo: true,                     // 是否显示跳页
                   locale: 'zh-CN',                     //设置中文 ,记得引入中文包js
                   columns: [
                   //   {
@@ -646,7 +668,7 @@ if(mybck == "" || mybck == null){
                       title: '使用的手机'
                   },
                   {
-                      field: 'collectuser',
+                      field: 'CollectUser',
                       align: 'center',
                       title: '采集信息的手机'
                   },
@@ -1194,13 +1216,15 @@ if(mybck == "" || mybck == null){
         // return a;
 
 
-        if(row.Type == "1"){//
-          return '<button class="btn btn-xs btn-info" style="background: #337ab7 !important;border-color: #337ab7;">'+'直播间'+'</button>'
-        }else if(row.Type == "2"){//
-          return '<button class="btn btn-xs btn-brown">'+'个人作品'+'</button>'
-        }else{
-          return ''
-        }
+            if(row.Type == "1"){//
+              return '<button class="btn btn-xs btn-info" style="background: #337ab7 !important;border-color: #337ab7;">'+'直播间'+'</button>'
+            }else if(row.Type == "2"){//
+              return '<button class="btn btn-xs btn-brown">'+'个人作品'+'</button>'
+            }else if(row.Type == "3"){//
+                return '<button class="btn btn-xs btn-brown" style="background-color: #f96197;border-color: #f96197">'+'通讯录'+'</button>'
+            }else{
+              return ''
+            }
 
       }
 
@@ -1468,12 +1492,18 @@ if(mybck == "" || mybck == null){
             $("#sampleTable").bootstrapTable('showColumn','Sex');//隐藏
 
 
-        }else{
+        }else if(obj.selectedIndex == 2){
             $("#sampleTable").bootstrapTable('hideColumn','Age');//隐藏
             $("#sampleTable").bootstrapTable('hideColumn','Address');//隐藏
             $("#sampleTable").bootstrapTable('hideColumn','Sex');//隐藏
 
             typeData = 2
+        }else{
+            $("#sampleTable").bootstrapTable('hideColumn','Age');//隐藏
+            $("#sampleTable").bootstrapTable('hideColumn','Address');//隐藏
+            $("#sampleTable").bootstrapTable('hideColumn','Sex');//隐藏
+
+            typeData = 3
         }
         var opt = {
             url: js_global_requestAddressGetCollectInformation+"?status=1&type="+typeData,
@@ -1483,11 +1513,63 @@ if(mybck == "" || mybck == null){
         $("#sampleTable").bootstrapTable('refresh', opt);
 
 
-
-
-
     }
 
+
+
+    //直播间按钮点击事件
+    $("#zbjBtn").click(function () {
+
+        $("#sampleTable").bootstrapTable('showColumn','Age');//显示
+        $("#sampleTable").bootstrapTable('showColumn','Address');//显示
+        $("#sampleTable").bootstrapTable('showColumn','Sex');//显示
+
+
+        var opt = {
+            url: js_global_requestAddressGetCollectInformation+"?status=1&type=1"
+        };
+
+        //带参数刷新
+        $("#sampleTable").bootstrapTable('refresh', opt);
+
+
+    })
+
+
+    //个人作品按钮点击事件
+    $("#grzpBtn").click(function () {
+
+        $("#sampleTable").bootstrapTable('hideColumn','Age');//隐藏
+        $("#sampleTable").bootstrapTable('hideColumn','Address');//隐藏
+        $("#sampleTable").bootstrapTable('hideColumn','Sex');//隐藏
+
+        var opt = {
+            url: js_global_requestAddressGetCollectInformation+"?status=1&type=2"
+        };
+
+        //带参数刷新
+        $("#sampleTable").bootstrapTable('refresh', opt);
+
+
+    })
+
+
+    //通讯录按钮点击事件
+    $("#txlBtn").click(function () {
+
+        $("#sampleTable").bootstrapTable('showColumn','Age');//显示
+        $("#sampleTable").bootstrapTable('showColumn','Address');//显示
+        $("#sampleTable").bootstrapTable('showColumn','Sex');//显示
+
+        var opt = {
+            url: js_global_requestAddressGetCollectInformation+"?status=1&type=3"
+        };
+
+        //带参数刷新
+        $("#sampleTable").bootstrapTable('refresh', opt);
+
+
+    })
 
 
 

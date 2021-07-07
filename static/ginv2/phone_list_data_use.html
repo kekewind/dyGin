@@ -14,21 +14,103 @@
 <link href="./css/bootstrap.min.css" rel="stylesheet">
 <link href="./css/materialdesignicons.min.css" rel="stylesheet">
 <link href="./js/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
-
-
-
-
-
-
 <link href="./css/animate.min.css" rel="stylesheet">
 <link href="./css/style.min.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="./css/message.css" media="all" />
 
+<style>
 
 
+    .lyear-right-box {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      flex-direction: column;
+      background-color: #fff;
+      width: 300px;
+      max-width: calc( 100% - 50px);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      right: -300px;
+      z-index: 999;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-transition: .3s ease;
+      transition: .3s ease;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      perspective: 1000;
+      will-change: transform;
+    }
+    .lyear-right-box.lyear-right-box-sm {
+      width: 220px;
+      right: -220px
+    }
+    .lyear-right-box.lyear-right-box-lg {
+      width: 420px;
+      right: -420px
+    }
+    .lyear-right-box.lyear-right-box-xl {
+      width: 640px;
+      right: -640px
+    }
+    .lyear-right-box.lyear-right-box-xxl {
+      width: 860px;
+      right: -860px
+    }
+    .lyear-right-box.lyear-right-box-open {
+      right: 0;
+      -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.08);
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.08);
+    }
+    .lyear-right-box-header {
+      position: relative;
+      padding: 0 20px;
+      min-height: 68px !important;
+      border-bottom: 1px solid #ebebeb
+    }
+    .lyear-right-box-header .lyear-right-box-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      margin-left: 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .lyear-right-box-title {
+      letter-spacing: .5px;
+      line-height: 68px;
+    }
+    .lyear-right-box-body {
+      height: -moz-calc(100% - 127px);
+      height: -webkit-calc(100% - 127px);
+      height: calc(100% - 127px);
+      position: relative;
+    }
+    /*遮罩层*/
+    .lyear-right-box-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 998;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .p-20 {
+      padding: 20px;
+    }
+    .lyear-right-box-footer {
+      padding: 10px 20px;
+      border-top: 1px solid #ebebeb
+    }
 
+</style>
 
 </head>
 
@@ -39,70 +121,61 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <div class="card-title">条件查询</div>
+          <div class="card-title">手机列表数据</div>
         </div>
         <div class="card-body">
 
 <!-- ml-md-auto -->
+        <form>
+
+          <input id="uploadinput" type="file" style="display:none" accept=".xls,.excel,.xlsx,.txt">
+
+        </form>
+          <form>
+            <div class="row">
+<!--              <div class="col">-->
+<!--                &lt;!&ndash; <input type="text" class="form-control" placeholder="请输入邮箱"> &ndash;&gt;-->
+<!--                <div class="input-group">-->
 
 
-            <form>
-                <div class="row">
-                    <div class="col-xs-8 col-sm-4 col-md-4 col-lg-2">
-                        <div class="form-group">
-                            <select class="form-control selectpicker" id="link_type" name="link_type"  data-style="btn-primary"  onchange="selectOnchang(this)">
-                                <option value="0" selected>请选择采集来源</option>
-                                <option value="1">直播间</option>
-                                <option value="2">个人作品</option>
-                            </select>
-                        </div>
-                    </div>
+<!--                  <div class="input-group-prepend">-->
+<!--                    <button class="btn btn-default" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="search-btn">欲添加抖音链接地址:</button>-->
+<!--                  </div>-->
+<!--                  <input type="text" class="form-control" id="dyurl" style="width:365px">-->
 
-                    <div class="col-xs-8 col-sm-4 col-md-4 col-lg-3">
+<!--                </div>-->
 
-                        <a class="btn btn-purple m-r-5" target-form="ids" id="reloadDataBtn" ><i class="mdi mdi-reload"></i> 刷新数据</a>
+<!--              </div>-->
 
-                    </div>
-                </div>
-            </form>
+              <div class="col">
+                <!-- <a class="btn btn-primary m-r-5" href="#!" id="querySelectBtn"><i class="mdi mdi-folder-search-outline"></i> 查询</a> -->
+                <a class="btn btn-purple m-r-5" target-form="ids" id="reloadDataBtn"><i class="mdi mdi-reload"></i> 刷新数据</a>
+              </div>
+            </div>
+
+
+<!--            <div class="row" style="margin-top:20px">-->
+
+<!--              <div class="col">-->
+<!--                <a class="btn btn-info m-r-5" href="#!" id="addUrlBtn"><i class="mdi mdi-plus"></i> 添加链接</a>-->
+<!--                <a class="btn btn-cyan m-r-5" target-form="ids" id="addUrlsBtn"><i class="mdi mdi-upload"></i> 上传批量链接</a>-->
+<!--              </div>-->
+<!--            </div>-->
+
+
+          </form>
 
         </div>
       </div>
 
       <div class="card">
 
-        <!-- <div class="col-lg-12" style="height:30px">
-          <div class="card"> -->
-            <!-- <header class="card-header"><div class="card-title">页面说明</div></header> -->
-            <!-- <div class="card-body">
-              <div class="callout callout-danger mb-3">当前访问的是粉丝管理数据。</div>
-            </div>
-          </div>
-        </div> -->
-
-
-
-
-        <!-- <div class="card-toolbar d-flex flex-column flex-md-row">
-          <div class="toolbar-btn-action">
-            <a class="btn btn-primary m-r-5" href="#!"><i class="mdi mdi-plus"></i> 新增</a>
-            <a class="btn btn-success m-r-5 ajax-post confirm" target-form="ids"><i class="mdi mdi-check"></i> 启用</a>
-            <a class="btn btn-warning m-r-5" href="#!"><i class="mdi mdi-block-helper"></i> 禁用</a>
-            <a class="btn btn-danger" href="#!"><i class="mdi mdi-window-close"></i> 删除</a>
-          </div>
-
-
-        </div> -->
-
-
         <div class="card-body">
-
           <div class="table-responsive">
+<!--            <a class="btn btn-info m-r-5"  id="editNumTaskType" data-toggle="lyear-right-box" data-target="#my-box"><i class="mdi mdi-playlist-edit"></i>批量修改任务类型</a>-->
             <table class="table table-bordered" id="sampleTable">
-
             </table>
           </div>
-
 
         </div>
       </div>
@@ -111,43 +184,44 @@
 
   </div>
 
-
-
-<!--  添加批量链接模态框弹窗-->
-  <div class="modal fade" id="exampleModalChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalChangeLabel" aria-hidden="true" data-backdrop="static"  data-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalChangeTitle">批量添加国内抖音链接</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="add_link_type" class="col-form-label">链接类型:</label>
-<!--                            <input type="text" class="form-control" id="recipient-name">-->
-                            <select class="form-control addselectpicker" id="add_link_type" name="add_link_type">
-                                <option value="1" selected>直播间</option>
-                                <option value="2">个人作品</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="add_likns" class="col-form-label">批量链接:</label>
-<!--                            <textarea class="form-control" id="message-text"></textarea>-->
-                            <textarea placeholder="请输入批量链接,每个链接用换行隔开" class="form-control" id="add_likns" style="height:330px"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" id="add_dy_urls" >确认添加</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+
+<div class="lyear-right-box lyear-right-box-xl" id="my-box">
+  <header class="lyear-right-box-header">
+    <div class="lyear-right-box-title">修改任务类型</div>
+    <span class="lyear-right-box-close"><i class="mdi mdi-close"></i></span>
+  </header>
+
+  <div class="lyear-right-box-body p-20">
+    <form action="#!" method="post" class="row">
+      <div class="form-group col-md-12">
+        <label for="add_link_type" class="col-form-label">任务类型:</label>
+        <select class="form-control addselectpicker" id="add_link_type" name="add_link_type" data-style="btn btn-pink" onchange="selectDialogOnchang(this)">
+          <option value="1" selected>采集</option>
+          <option value="2">直播加粉</option>
+          <option value="3">短视频加粉</option>
+          <option value="4">私聊</option>
+        </select>
+      </div>
+<!--      <div class="form-group col-md-12">-->
+<!--        <label for="add_likns" class="col-form-label">批量链接:</label>-->
+<!--        &lt;!&ndash;                            <textarea class="form-control" id="message-text"></textarea>&ndash;&gt;-->
+<!--        <textarea placeholder="请输入批量链接,每个链接用换行隔开" class="form-control" id="add_likns" style="height:520px"></textarea>-->
+<!--      </div>-->
+    </form>
+  </div>
+
+  <footer class="lyear-right-box-footer">
+
+    <button type="button" class="btn btn-primary" id="add-form" data-target="#my-box">确认修改</button>
+    <!--        <button type="button" class="btn btn-primary" id="add_form_dy_urls" >确认添加</button>-->
+    <!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>-->
+
+  </footer>
+
+</div>
+
+
 
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./js/popper.min.js"></script>
@@ -161,7 +235,6 @@
 <script src="./js/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 <link href="js/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
 <!-- <script src="js/bootstrap-table-zh-CN.js"></script> -->
-
 
 <script type="text/javascript" src="./js/lyear-loading.js"></script>
 <script type="text/javascript" src="./js/bootstrap-notify.min.js"></script>
@@ -185,13 +258,10 @@
 <script src="./js/bootstrap-select-1.13.18/bootstrap-select.min.js"></script>
 
 
+<script type="text/javascript" src="./js/perfect-scrollbar.min.js"></script>
 
 
 <script type="text/javascript">
-
-
-
-
 
 var mybck= $.cookie('tokenMyb');
 //alert(document.cookie);
@@ -203,12 +273,136 @@ if(mybck == "" || mybck == null){
 
 }else{
 
-
+  var singelData ='';
   $(function(){
 
-      // 要用bootstrap样式必须初始化这个才可以让select显示出样式
-      $('.selectpicker').selectpicker({});
-      $('.addselectpicker').selectpicker({});
+
+
+    $('.addselectpicker').selectpicker({});
+
+    //-------------------侧边栏功能------------------//
+    //右边框内容必须创建
+    new PerfectScrollbar('.lyear-right-box-body', {
+      swipeEasing: false,
+      suppressScrollX: true
+    });
+
+
+    $(document).on('click', '[data-toggle="lyear-right-box"]', function(e) {
+
+
+
+      e.preventDefault();
+      var target = $(this).data('target');
+
+
+      // console.log("当前1",target)
+
+      if (target == false) {
+        closeBox($(target).closest('.lyear-right-box'));
+      } else {
+        if ( $(target).hasClass('lyear-right-box-open') ) {
+          $("#add_likns").val("");
+          closeBox($(target).closest('.lyear-right-box'));
+        } else {
+          $(target).addClass('lyear-right-box-open').after('<div class="lyear-right-box-backdrop" data-target="'+ target +'"></div>');;
+        }
+      }
+    });
+
+    $(document).on('click', '.lyear-right-box-backdrop', function(){
+      $("#add_likns").val("");
+      var target = $(this).data('target');
+
+      closeBox($(target).closest('.lyear-right-box'));
+    });
+
+    $(document).on('click', '.lyear-right-box-close', function(){
+      $("#add_likns").val("");
+      var boxObj = $(this).closest('.lyear-right-box');
+
+      closeBox(boxObj);
+    });
+
+    /**
+     * 关闭方法
+     * @param object e box对象
+     */
+    var closeBox = function(e) {
+      $(e).removeClass('lyear-right-box-open');
+      $('.lyear-right-box-backdrop').remove();
+    }
+
+    $(document).on('click', '#add-form', function(e) {
+      var getStr ;
+
+      console.log("点击保存的时候显示",singelData.length)
+
+      //这种判断有个小细节,如果单选的时候,点批量修改会修改不到
+      if(singelData.length == 1){
+
+        //GET方式
+        getStr =js_global_requestAddressSetAllOrOneTaskTypeValue+"?task_type="+$("#add_link_type").val()+"&ids="+singelData.ID;
+
+      }else{
+
+        var dataInfoId = "";
+
+        for (var i = 0; i < singelData.length; i++) {
+          dataInfoId += "@" + singelData[i].ID;
+          // firsttypes += "," + dataS[i].firsttype;
+        }
+
+        dataInfoId = dataInfoId.substr(1);
+
+        //GET方式
+        getStr =js_global_requestAddressSetAllOrOneTaskTypeValue+"?task_type="+$("#add_link_type").val()+"&ids="+dataInfoId;
+
+      }
+
+      console.log("点击保存的时候显示",getStr)
+
+
+      var boxObj = $(this).closest('.lyear-right-box');
+
+      closeBox(boxObj);
+
+      $.get(getStr,function(delresult){
+
+        if(delresult.code == 200){
+
+
+          $.message({
+            message:delresult.msg ,
+            type: 'success',
+            showClose: true
+          });
+
+          $('#sampleTable').bootstrapTable('refresh');
+
+        }else{
+
+          $.message({
+            message:delresult.msg ,
+            type: 'error',
+            showClose: true
+          });
+
+
+          $('#sampleTable').bootstrapTable('refresh');
+
+
+        }
+
+      });
+
+
+
+
+
+    });
+
+    //-------------------侧边栏功能------------------//
 
 
       //1.初始化Table
@@ -525,15 +719,14 @@ if(mybck == "" || mybck == null){
           //初始化Table
           oTableInit.Init = function () {
               $('#sampleTable').bootstrapTable({
-                  url: js_global_requestAddressGetCollectInformation+"?status=3&type=1",       //请求后台的URL（*）
+                  url: js_global_requestAddressphone_list_data+"?status=2",         //请求后台的URL（*）
                   method: 'get',                      //请求方式（*）
                   toolbar: '#toolbar',                //工具按钮用哪个容器
                   striped: true,                      //是否显示行间隔色
                   cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
                   pagination: true,                   //是否显示分页（*）
                   sortable: false,                     //是否启用排序
-                  sortName:"ID",                       //排序名字
-                  sortOrder: 'desc',                   //排序方式asc升序 desc降序
+                  sortOrder: "asc",                   //排序方式
                   queryParams: oTableInit.queryParams,//传递参数（*）
                   sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
                   pageNumber:1,                       //初始化加载第一页，默认第一页
@@ -580,82 +773,33 @@ if(mybck == "" || mybck == null){
                       field: 'ID',
                       align: 'center',
                       title: 'ID编号'
-                  },{
-                      field: 'Age',
+                  }, {
+                      field: 'Nickname',
                       align: 'center',
-                      title: '年龄',
-                      width:65,
-                      cellStyle:formatTableUnitAge,
-                      formatter :paramsMatter
-                  },{
-                      field: 'Address',
-                      align: 'center',
-                      title: '地址',
-                      width:90,
-                      cellStyle:formatTableUnit,
-                      formatter :paramsMatter
-                  },{
-                      field: 'Like',
-                      align: 'center',
-                      title: '获赞'
-                  },{
-                      field: 'Following',
-                      align: 'center',
-                      title: '关注'
-                  },{
-                      field: 'Follows',
-                      align: 'center',
-                      title: '粉丝'
-                  },{
-                      field: 'Sign',
-                      align: 'center',
-                      title: '签名',
-                      width:90,
-                      cellStyle:formatTableUnitSign,
-                      formatter :paramsMatter
-                  },{
-                      field: 'Sex',
-                      align: 'center',
-                      title: '性别'
-                  },{
-                  field: 'DyNumber',
-                  align: 'center',
-                  title: '抖音号'
-                  },{
-                      field: 'UseUser',
-                      align: 'center',
-                      title: '使用的手机'
-                  },
-                  {
-                      field: 'CollectUser',
-                      align: 'center',
-                      title: '采集信息的手机'
-                  },
-                  {
-                      field: 'status',
+                      title: '手机名称'
+                  },  {
+                      field: 'Status',
                       align: 'center',
                       title: '状态',
-                      width:85,
                       formatter:statusformat
                   },{
-                      field: 'Type',
+                      field: 'TaskType',
                       align: 'center',
-                      title: '采集来源',
-                      formatter:typeformat
+                      title: '任务类型',
+                      formatter:taskTypeformat
                   },{
-                      field: 'created_at',
+                      field: 'Created',
                       align: 'center',
                       title: '创建时间',
                       formatter:createdat
                   }, {
-                      field: 'updated_at',
+                      field: 'Updated',
                       align: 'center',
                       title: '更新时间',
                       formatter:updatedat
                   },
-
                   //     {
-                  //     field:'ID',
+                  //     field:'caozuo',
                   //     title: '操作',
                   //     // width: 200,
                   //     // width: 100,
@@ -665,7 +809,6 @@ if(mybck == "" || mybck == null){
                   //     formatter: operateFormatter
                   //     // formatter:actionFormatter
                   // }
-
                   ],
                   // 当提供数据格式不是bootstrap-table格式的时候,用以下方法处理返回的数据，
                   responseHandler: function(res) {
@@ -718,22 +861,6 @@ if(mybck == "" || mybck == null){
 
           //得到查询的参数
           oTableInit.queryParams = function (params) {
-              // var strTime = $("#config-demo").val();
-              // var arrStar=strTime.substr(0, 19);
-              // var arrEnd=strTime.slice(-19);
-              // console.log("进来");
-
-              // var getDate = $("#ip_date").val();
-              // var getNickName = $("#ip_nickname").val();
-              //
-              // // console.log("进来日期",getDate);
-              //
-              //  if(getDate == "" && getNickName == ""){
-              //
-              //      getDate = 123;
-              //      getNickName =123;
-              //
-              //  }
 
               var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
 
@@ -743,161 +870,102 @@ if(mybck == "" || mybck == null){
               };
               return temp;
           };
+
+
+
+
           return oTableInit;
       };
 
-
-
       window.operateEvents = {
-          'click .RoleOfUndate': function (e, value, row, index) {//更新数据按钮
+          'click .RoleOfUndate': function (e, value, row, index) {//删除按钮
+
+            singelData = row
+
+            // console.log(row.TaskType)
+            console.log("点击编辑的时候显示",singelData)
+
+            // $(".selector").find("option:contains('pxx')").attr("selected",true);
+            // $("#add_link_type").find("option[text='短视频采集']").attr("selected",true);
+            $("#add_link_type").val(row.TaskType);
+
+          // //pop up
+          // swal({//新版使用方法
+          //   title: "谨慎操作",
+          //   text: "系统将更新当前数据，确认要修改吗？",
+          //   icon: "warning",
+          //   buttons: ["取消",'是的,删除数据!'],
+          //   dangerMode: true,
+          // })
+          //         .then((willDelete) => {
+          //           if (willDelete) {//确认操作
+          //
+          //
+          //
+          //             //GET方式
+          //             var getStr =js_global_requestAddressSetAllOrOneTaskTypeValue+"?id="+row.id;
+          //
+          //
+          //
+          //
+          //             $.get(getStr,function(result){
+          //               // toastr.options = {
+          //               //     "closeButton": false,
+          //               //     "debug": false,
+          //               //     "positionClass": "toast-center-center",
+          //               //     "onclick": null,
+          //               //     "showDuration": "300",
+          //               //     "hideDuration": "1000",
+          //               //     "timeOut": "1000",
+          //               //     "extendedTimeOut": "1000",
+          //               //     "showEasing": "swing",
+          //               //     "hideEasing": "linear",
+          //               //     "showMethod": "fadeIn",
+          //               //     "hideMethod": "fadeOut"
+          //               // };
+          //               // toastr.success("删除成功");
+          //               // $('#sampleTable').bootstrapTable('refresh');//刷新Table，Bootstrap Table 会自动执行重新查询
+          //
+          //               if(result.code == 1){
+          //
+          //
+          //                 $.message({
+          //                   message:row.msg,
+          //                   type: 'success',
+          //                   showClose: true
+          //                 });
+          //
+          //                 $('#sampleTable').bootstrapTable('refresh');//刷新Table，Bootstrap Table 会自动执行重新查询
+          //
+          //
+          //
+          //               }else {
+          //
+          //
+          //                 // swal("删除成功!", "当前数据已在系统删除。", "success");
+          //                 $('#sampleTable').bootstrapTable('refresh');//刷新Table，Bootstrap Table 会自动执行重新查询
+          //
+          //
+          //               }
+          //
+          //
+          //
+          //
+          //             },"json");
+          //
+          //
+          //
+          //
+          //
+          //
+          //           } else {//取消操作
+          //
+          //             // swal("取消", "取消删除,数据是安全的", "info");
+          //           }
+          //         });
 
 
-              $('body').loading({
-                  loadingWidth:240,
-                  title:'',
-                  name:'test',
-                  discription:'正在查询数据当中...',
-                  direction:'column',
-                  type:'origin',
-                  // originBg:'#71EA71',
-                  originDivWidth:40,
-                  originDivHeight:40,
-                  originWidth:6,
-                  originHeight:6,
-                  smallLoading:false,
-                  loadingMaskBg:'rgba(0,0,0,0.2)'
-              });
-
-
-              //GET方式
-              var getStr =""+row.merchant_order_no;
-
-              var param_first={};
-
-              param_first['query_type']="normalQuery";
-              param_first['order_no']=row.merchant_order_no;
-
-
-              $.post("", param_first,
-                  function(result){
-
-                      // alert(result);
-
-                      //jqury json字符串转json对象
-                      var resultNew =eval('(' + result + ')');
-
-                      var getState = resultNew.response.is_success;
-
-                      if(getState === "F"){
-                          var getError = resultNew.response.error_code;
-                          if(getError === "csp.orderService.order-not-exist" || getError === "ORDER_NO_IS_NULL"){
-                              toastr.options = {
-                                  "closeButton": false,
-                                  "debug": false,
-                                  "positionClass": "toast-center-center",
-                                  "onclick": null,
-                                  "showDuration": "300",
-                                  "hideDuration": "1000",
-                                  "timeOut": "1000",
-                                  "extendedTimeOut": "1000",
-                                  "showEasing": "swing",
-                                  "hideEasing": "linear",
-                                  "showMethod": "fadeIn",
-                                  "hideMethod": "fadeOut"
-                              };
-                              toastr.error("订单号不存在");
-
-                              removeLoading('test');
-                          }
-                      }else{
-
-
-                          var getTradeNo = resultNew.response.trade.trade_no;
-                          var getTradeStatus = resultNew.response.trade.trade_status;
-
-                          if(getTradeStatus === "SUCCESS"){
-                              getTradeStatus = "交易成功";
-                          }else{
-                              getTradeStatus = "未支付";
-                          }
-
-                          var getTradeTime = resultNew.response.trade.trade_time;
-                          var getOrderNo = resultNew.response.trade.order_no;
-
-                          // alert(getTradeNo+getTradeTime);
-                          //
-                          // console.log(getTradeNo);
-                          // console.log(getTradeStatus);
-                          // console.log(getTradeTime);
-                          // console.log(getOrderNo);
-
-
-                          var param={};
-
-                          param['query_type']="successUpdateData";
-                          param['order_no']=getOrderNo;
-                          param['trade_no']=getTradeNo;
-                          param['pay_time']=getTradeTime;
-                          param['pay_state'] =getTradeStatus;
-
-
-
-                          $.post("", param,
-                              function(queryResult){
-
-                                  var queryResultNew =eval('(' + queryResult + ')');
-                                  // console.log(queryResultNew.updatemsg);
-
-                                  if(queryResultNew.updatecode === 200){
-                                      var notifyMsg = queryResultNew.updatemsg;
-                                      toastr.options = {
-                                          "closeButton": false,
-                                          "debug": false,
-                                          "positionClass": "toast-center-center",
-                                          "onclick": null,
-                                          "showDuration": "300",
-                                          "hideDuration": "1000",
-                                          "timeOut": "1000",
-                                          "extendedTimeOut": "1000",
-                                          "showEasing": "swing",
-                                          "hideEasing": "linear",
-                                          "showMethod": "fadeIn",
-                                          "hideMethod": "fadeOut"
-                                      };
-                                      toastr.success(notifyMsg);
-                                      // var _data = {
-                                      //     "merchant_trade_no" : merchant_trade_noStr,
-                                      //     "pay_state" : merchant_trade_noStr
-                                      // };
-                                      // $('#sampleTable').bootstrapTable('updateRow', {index: index, row: _data});//index---->更新行的索引。row---->要更新的数据
-
-                                      removeLoading('test');
-
-                                      $("#sampleTable").bootstrapTable('refresh');
-                                  }else{
-                                      toastr.options = {
-                                          "closeButton": false,
-                                          "debug": false,
-                                          "positionClass": "toast-center-center",
-                                          "onclick": null,
-                                          "showDuration": "300",
-                                          "hideDuration": "1000",
-                                          "timeOut": "1000",
-                                          "extendedTimeOut": "1000",
-                                          "showEasing": "swing",
-                                          "hideEasing": "linear",
-                                          "showMethod": "fadeIn",
-                                          "hideMethod": "fadeOut"
-                                      };
-                                      toastr.info(queryResultNew.updatemsg);
-                                      removeLoading('test');
-                                  }
-                              });
-
-                      }
-                  });
-
-          },
+        },
           'click .RoleOfLookUp': function (e, value, row, index) {//查看数据按钮
               // $("#editModal").modal('show');
               // alert(row.mer_transfer_no);
@@ -1021,6 +1089,57 @@ if(mybck == "" || mybck == null){
           'click .RoleOfDelete': function (e, value, row, index) {//删除按钮
 
 
+              // //alert 消息通知
+              // swal({
+              //     title: "谨慎操作",
+              //     text: "系统将删除当前数据，确认要删除？",
+              //     type: "warning",
+              //     showCancelButton: true,
+              //     confirmButtonText: "是的,删除数据!",
+              //     cancelButtonText: "取消",
+              //     closeOnConfirm: false,
+              //     closeOnCancel: false,
+              //     animation:"slide-from-top"
+              // }, function(isConfirm) {
+              //
+              //     // if (isConfirm) {
+              //     //
+              //     //     //GET方式
+              //     //     var getStr =""+row.id;
+              //     //
+              //     //     $.get(getStr,function(result){
+              //     //         // toastr.options = {
+              //     //         //     "closeButton": false,
+              //     //         //     "debug": false,
+              //     //         //     "positionClass": "toast-center-center",
+              //     //         //     "onclick": null,
+              //     //         //     "showDuration": "300",
+              //     //         //     "hideDuration": "1000",
+              //     //         //     "timeOut": "1000",
+              //     //         //     "extendedTimeOut": "1000",
+              //     //         //     "showEasing": "swing",
+              //     //         //     "hideEasing": "linear",
+              //     //         //     "showMethod": "fadeIn",
+              //     //         //     "hideMethod": "fadeOut"
+              //     //         // };
+              //     //         // toastr.success("删除成功");
+              //     //         // $('#sampleTable').bootstrapTable('refresh');//刷新Table，Bootstrap Table 会自动执行重新查询
+              //     //
+              //     //         swal("删除成功!", "当前数据已在系统删除。", "success");
+              //     //         $('#sampleTable').bootstrapTable('refresh');//刷新Table，Bootstrap Table 会自动执行重新查询
+              //     //
+              //     //     });
+              //     //
+              //     //
+              //     // } else {
+              //     //
+              //     //     swal("取消", "取消删除,数据是安全的", "info");
+              //     //     // swal("取消", "取消删除,数据是安全的", "error");
+              //     //     // $('#sampleTable').bootstrapTable('refresh');
+              //     //
+              //     // }
+              // });
+
               //pop up
               swal({//新版使用方法
                   title: "谨慎操作",
@@ -1112,113 +1231,86 @@ if(mybck == "" || mybck == null){
      };
 
 
-      //对应的复选框函数进行判断；
-      function stateFormatter(value, row, index) {
-        // if (row.state1111 == true)
-        //   return {
-        //     disabled : false,//设置是否可用
-        //     checked : true//设置选中
-        //   };
-        // return value;
+  //对应的复选框函数进行判断；
+  function stateFormatter(value, row, index) {
+    // if (row.state1111 == true)
+    //   return {
+    //     disabled : false,//设置是否可用
+    //     checked : true//设置选中
+    //   };
+    // return value;
 
-        return {
-          disabled : false,//设置是否可用
-          checked : false//设置选中
-        };
+    return {
+      disabled : false,//设置是否可用
+      checked : false//设置选中
+    };
 
-      }
+  }
 
-      function statusformat(value,row,index) {
-             // alert(index);
-             // var a = "";
+  function statusformat(value,row,index) {
 
-              // var a = '<span style="color:#17c6b9"><i class="fa fa-battery-full" style="font-style:normal" aria-hidden="true">'+row.add_followers+'</span>';
-              // var a = '<span class="badge badge-warning">'+'未使用'+'</span>';
-              // var a = '<button class="btn btn-xs btn-warning">'+'未使用'+'</button>';
-              //
-              // return a;
+    if(row.Status == "1"){//
+      return '<button class="btn btn-xs btn-info" style="background: #337ab7 !important;border-color: #337ab7;">'+'未运行'+'</button>'
+    }else if(row.Status == "2"){//
+      return '<button class="btn btn-xs btn-brown" style="background-color: #28a745;border-color: #28a745;">'+'运行中'+'</button>'
+    }else{
+      return ''
+    }
 
-
-            if(row.Status == "1"){//
-              return '<button class="btn btn-xs btn-warning">'+'正常'+'</button>'
-            }else if(row.Status == "2"){//
-              return '<button class="btn btn-xs btn-primary">'+'正在使用'+'</button>'
-            }else if(row.Status == "3"){//
-              return '<button class="btn btn-xs btn-danger">'+'已使用'+'</button>'
-            }else{
-              return ''
-            }
-
-       }
+  }
 
 
-      function typeformat(value,row,index) {
-        // alert(index);
-        // var a = "";
+  // style="background: #337ab7 !important;border-color: #608fb8;"
+  function taskTypeformat(value,row,index) {
 
-        // var a = '<span style="color:#17c6b9"><i class="fa fa-battery-full" style="font-style:normal" aria-hidden="true">'+row.add_followers+'</span>';
-        // var a = '<span class="badge badge-warning">'+'未使用'+'</span>';
-        // var a = '<button class="btn btn-xs btn-warning">'+'未使用'+'</button>';
-        //
-        // return a;
+    if(row.TaskType == "0"){//
+      return '<button class="btn btn-xs btn btn-dark">'+'初始化'+'</button>'
+    }if(row.TaskType == "1"){//
+      return '<button class="btn btn-xs btn-info" style="background: #337ab7 !important;border-color: #337ab7;">'+'采集'+'</button>'
+    }else if(row.TaskType == "2"){//
+      return '<button class="btn btn-xs btn-warning">'+'直播加粉'+'</button>'
+    }else if(row.TaskType == "3"){//
+      return '<button class="btn btn-xs btn-cyan">'+'短视频加粉'+'</button>'
+    }else if(row.TaskType == "4"){//
+      return '<button class="btn btn-xs btn-brown">'+'私聊'+'</button>'
+    }else{
+      return ''
+    }
 
-
-        if(row.Type == "1"){//
-          return '<button class="btn btn-xs btn-info" style="background: #337ab7 !important;border-color: #337ab7;">'+'直播间'+'</button>'
-        }else if(row.Type == "2"){//
-          return '<button class="btn btn-xs btn-brown">'+'个人作品'+'</button>'
-        }else{
-          return ''
-        }
-
-      }
+  }
 
 
+  //创建时间模板
+  function createdat(value,row,index) {
 
-       //创建时间模板
-       function createdat(value,row,index) {
+    var unixTimestamp = new Date(row.Created * 1000)
+    return formatDateTime(unixTimestamp)
 
-            // var unixTimestamp = new Date(row.created_at * 1000)
-            // return formatDateTime(unixTimestamp)
+  }
 
+  //更新时间模板
+  function updatedat(value,row,index) {
 
-             var unixTimestamp = row.CreatedAt.substring(0,19)
+    var unixTimestamp = new Date(row.Updated * 1000)
+    return formatDateTime(unixTimestamp)
 
-
-             return unixTimestamp;
-
-
-      }
-
-       //更新时间模板
-      function updatedat(value,row,index) {
-
-         // var unixTimestamp = new Date(row.updated_at * 1000)
-         // return formatDateTime(unixTimestamp)
-
-          var unixTimestamp = row.UpdatedAt.substring(0,19)
+  }
 
 
-          return unixTimestamp;
+  //操作栏按钮模板
+  function operateFormatter(value, row, index) {
+    return [
+
+      // '<button type="button" class="RoleOfLookUp btn btn-xs btn-success " ><span class=\'glyphicon glyphicon-search\'></span>查看</button>',
+      // '&nbsp&nbsp&nbsp',
+      '<button type="button" class="RoleOfUndate btn btn-primary  btn-label" data-toggle="lyear-right-box" data-target="#my-box"><label><i class="mdi mdi-circle-edit-outline"></i></label></label>编辑</button>',
+      // '<button type="button" class="RoleOfDelete btn btn-danger btn-label" ><label><i class="mdi mdi-close"></i></label></label>删除</button>',
+
+    ].join('');
+  }
 
 
-     }
-
-
-      //操作栏按钮模板
-      function operateFormatter(value, row, index) {
-         return [
-             // '<button type="button" class="RoleOfUndate btn btn-xs btn-primary" ><span class=\'glyphicon glyphicon-refresh\'></span>更新</button>',
-             // '&nbsp&nbsp&nbsp',
-             // '<button type="button" class="RoleOfLookUp btn btn-xs btn-success " ><span class=\'glyphicon glyphicon-search\'></span>查看</button>',
-             // '&nbsp&nbsp&nbsp',
-             '<button type="button" class="RoleOfDelete btn btn-danger btn-label" ><label><i class="mdi mdi-close"></i></label></label>删除</button>',
-
-         ].join('');
-     }
-
-
-     //
+  //
      // //查询按钮的效果
      //  $("#querySelectBtn").click(function(){
      //
@@ -1286,20 +1378,12 @@ if(mybck == "" || mybck == null){
               return false
             }
 
-
-             if($("#link_type").val() == 0) {
-
-                 swal("温馨提示!", "请选择链接类型,否则无法添加！", "error");
-                 return false;
-             }
-
-
-             //GET方式
-             var getStr =js_global_requestAddressAnalysisLink+"?type="+$("#link_type").val()+"&link="+$("#dyurl").val();
+            //GET方式
+            var getStr =global_requestDyAddUrl_js+"?url="+$("#dyurl").val();
 
             $.get(getStr,function(delresult){
 
-                if(delresult.code == 200){
+                if(delresult.code == 1){
 
                     $("#dyurl").val("");
 
@@ -1335,179 +1419,144 @@ if(mybck == "" || mybck == null){
 
      // 批量上传按钮链接添加
      $("#addUrlsBtn").click(function(){
-         //
-         $('#exampleModalChange').on('show.bs.modal', function (event) {
 
-             // var button = $(event.relatedTarget);
-             //
-             // console.log("aaa",button)
-
-             // var recipient = button.data('whatever');
-             // var modal = $(this);
-             // modal.find('.modal-body input').val(recipient);
-         })
-
-         // $('#exampleModalChange').model()
-         // $('#exampleModalChange').modal("show");
+           $("#uploadinput").val("");
+           $("#uploadinput").click()
 
      })
 
 
-    //确认添加点击事件
-    $("#add_dy_urls").click(function (){
-
-
-        var strContent = document.getElementById("add_likns").value;
-        // console.log("啊啊啊啊11111",strContent)
-
-        var strContentHH = strContent.split("\n").join("@")
-
-        // console.log("啊啊啊啊",strContent.split("\n").join(";"))
-
-        if($("#add_likns").val() == 0) {
-
-            layer.msg("请填入批量链接,否则无法进行添加");
-
-            return false;
-        }
-
-        // js_global_requestAddressAnalysisLink
-        //GET方式
-        var getStr =js_global_requestAddressAnalysisLink+"?type="+$("#add_link_type").val()+"&link="+strContentHH;
-
-        // getStr = decodeURIComponent(getStr)
-
-        console.log("getStr",getStr)
-
-
-        $.get(getStr,function(delresult){
-
-            if(delresult.code == 200){
-
-                $("#add_likns").val("");
-
-                $.message({
-                    message:delresult.msg ,
-                    type: 'success',
-                    showClose: true
-                });
-
-                $("#exampleModalChange").modal('hide');  //手动关闭
-
-                ('#sampleTable').bootstrapTable('refresh');//刷新Table，Bootstrap Table 会自动执行重新查询
-
-            }else{
-
-                $.message({
-                    message:delresult.msg ,
-                    type: 'error',
-                    showClose: true
-                });
-
-                $("#exampleModalChange").modal('hide');  //手动关闭
-
-                $('#sampleTable').bootstrapTable('refresh');//刷新Table，Bootstrap Table 会自动执行重新查询
-
-            }
-
-            // console.log(delresult);
-        });
 
 
 
-
-    })
-
-
-    //下拉框选择事件
-    function selectOnchang(obj){
-        //获取被选中的option标签选项
-        // alert(obj.selectedIndex);
-
-
-
-        var typeData;
-
-        if(obj.selectedIndex == 0 || obj.selectedIndex == 1){
-
-            typeData = 1
+     var $input =  $("#uploadinput");
+     // ①为input设定change事件
+     $input.change(function () {
+     //    ②如果value不为空，调用文件加载方法
+         if($(this).val() != ""){
+             fileLoad(this);
+         }
+     })
 
 
-            $("#sampleTable").bootstrapTable('showColumn','Age');//隐藏
-            $("#sampleTable").bootstrapTable('showColumn','Address');//隐藏
-            $("#sampleTable").bootstrapTable('showColumn','Sex');//隐藏
-
-
-        }else{
-
-            typeData = 2
-
-
-            $("#sampleTable").bootstrapTable('hideColumn','Age');//隐藏
-            $("#sampleTable").bootstrapTable('hideColumn','Address');//隐藏
-            $("#sampleTable").bootstrapTable('hideColumn','Sex');//隐藏
-
-
-        }
-        var opt = {
-            url: js_global_requestAddressGetCollectInformation+"?status=3&type="+typeData,
-        };
-
-        //带参数刷新
-        $("#sampleTable").bootstrapTable('refresh', opt);
+     //③创建fileLoad方法用来上传文件
+     function fileLoad(ele){
+           //④创建一个formData对象
+           var formData = new FormData();
+           //⑤获取传入元素的val
+           var name = $(ele).val();
 
 
 
-
-    }
-
-
-
-    //表格超出宽度鼠标悬停显示td内容
-    function paramsMatter(value,row,index) {
-        var span=document.createElement("span");
-        span.setAttribute("title",value);
-        span.innerHTML = value;
-        return span.outerHTML;
-    }
-
-    //td宽度以及内容超过宽度隐藏
-    function formatTableUnit(value, row, index) {
-        return {
-            css: {
-                "white-space": "nowrap",
-                "text-overflow": "ellipsis",
-                "overflow": "hidden",
-                "max-width":"30px"
-            }
-        }
-    }
-
-    //td宽度以及内容超过宽度隐藏
-    function formatTableUnitSign(value, row, index) {
-        return {
-            css: {
-                "white-space": "nowrap",
-                "text-overflow": "ellipsis",
-                "overflow": "hidden",
-                "max-width":"100px"
-            }
-        }
-    }
+             //⑥获取files
+           /////////原始js操作方法
+           // var files = $(ele)[0].files[0];
+           //jquery操作方法
+           var jqfiles = $('#uploadinput').prop('files');
+           var files = jqfiles[0];
+           //⑦将name 和 files 添加到formData中，键值对形式
+           formData.append("file", files);
+           formData.append("name", name);
+           formData.append("action", "file");
+            // console.log("获取上传数据",name,files);
 
 
-    //td宽度以及内容超过宽度隐藏
-    function formatTableUnitAge(value, row, index) {
-        return {
-            css: {
-                "white-space": "nowrap",
-                "text-overflow": "ellipsis",
-                "overflow": "hidden",
-                "max-width":"65px"
-            }
-        }
-    }
+           $.ajax({
+               url: global_requestDyAddUrl_js,
+               // url: "test.php",
+               type: 'POST',
+               data: formData,
+               processData: false,// ⑧告诉jQuery不要去处理发送的数据
+               contentType: false, // ⑨告诉jQuery不要去设置Content-Type请求头
+               beforeSend: function () {
+                  //⑩发送之前的动作
+                   // alert("我还没开始发送呢");
 
+                   $('body').loading({
+                      loadingWidth:240,
+                      title:'',
+                      name:'test',
+                      discription:'上传文件中请耐心等待...',
+                      direction:'column',
+                      type:'origin',
+                      // originBg:'#71EA71',
+                      originDivWidth:40,
+                      originDivHeight:40,
+                      originWidth:6,
+                      originHeight:6,
+                      smallLoading:false,
+                      loadingMaskBg:'rgba(0,0,0,0.2)'
+                  });
+
+
+               },
+               success: function (responseStr) {
+                  //11成功后的动作
+                   // alert("成功啦");
+
+
+                   if(1 === responseStr.code){
+
+
+                      removeLoading('test');
+
+                       window.location.reload();
+
+                   }else{
+
+                     removeLoading('test');
+
+                     $.message({
+                         message:responseStr.msg ,
+                         type: 'error',
+                         showClose: true
+                     });
+
+                   }
+               }
+               ,
+               error : function (responseStr) {
+                   //12出错后的动作
+                   // alert("出错啦");
+
+                   removeLoading('test');
+
+                   $.message({
+                       message:responseStr.msg ,
+                       type: 'error',
+                       showClose: true
+                   });
+
+               }
+           });
+       }
+
+
+    // //批量修改功能点击事件
+    // $("#editNumTaskType").click(function(){
+    //
+    //   var row=$("#sampleTable").bootstrapTable('getSelections');
+    //
+    //   // console.log("当前行数据",row);
+    //
+    //   if(row.length === 0){
+    //
+    //     $.message({
+    //       message: "请选中数据,在进行批量修改操作",
+    //       type: 'error',
+    //       showClose: true
+    //     });
+    //
+    //     return false
+    //
+    //   }
+    //
+    //   console.log("当前所有数据",row)
+    //
+    //   singelData = row
+    //
+    //
+    // })
 
 }
 

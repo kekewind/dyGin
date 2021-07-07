@@ -20,9 +20,15 @@ js_global_requestAddressGetCollectInformation = "/collect/GetCollectInformation"
 //登录接口
 js_global_requestloginAddress="/login";
 
-
 //获取手机列表数据
 js_global_requestAddressphone_list_data= "/phone/GetPhoneList"
+
+//修改手机列表的运行种类,单个和批量都可以
+js_global_requestAddressSetAllOrOneTaskTypeValue= "/phone/SetAllOrOneTaskTypeValue"
+
+//删除手机数据
+js_global_requestAddressDeleteOneDevice= "/phone/DeleteOneDevice"
+
 
 var getRootPath_webStr = getRootPath_web();
 

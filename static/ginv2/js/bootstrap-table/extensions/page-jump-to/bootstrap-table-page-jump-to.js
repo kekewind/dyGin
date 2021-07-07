@@ -26,9 +26,9 @@ $.BootstrapTable = class extends $.BootstrapTable {
 
       if (!$jumpTo.length) {
         $jumpTo = $(`
-          <div class="page-jump-to ${this.constants.classes.inputGroup}">
-          <input type="number" class="${this.constants.classes.input}${Utils.sprintf(' input-%s', this.options.iconSize)}" value="${this.options.pageNumber}">
-          <button class="${this.constants.buttonsClass}"  type="button">
+          <div class="page-jump-to ${this.constants.classes.inputGroup}" style="margin-left: 10px;">
+          <input type="number" class="${this.constants.classes.input}${Utils.sprintf(' input-%s', this.options.iconSize)}" value="${this.options.pageNumber}" style="width: 150px ">
+          <button class="${this.constants.buttonsClass} btn-round btn-dark"  type="button"  style="width: 150px!important;">
           ${this.options.formatJumpTo()}
           </button>
           </div>

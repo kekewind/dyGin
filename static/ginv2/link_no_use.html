@@ -10,21 +10,16 @@
 <link rel="stylesheet" href="./loading/css/global.css">
 <link rel="stylesheet" href="./loading/css/loading.css">
 
-
 <link href="./css/bootstrap.min.css" rel="stylesheet">
 <link href="./css/materialdesignicons.min.css" rel="stylesheet">
 <link href="./js/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
 
-
-
-
-
-
 <link href="./css/animate.min.css" rel="stylesheet">
 <link href="./css/style.min.css" rel="stylesheet">
 
-
 <link rel="stylesheet" href="./css/message.css" media="all" />
+
+<link rel="stylesheet" href="./js/bootstrap-table/extensions/page-jump-to/bootstrap-table-page-jump-to.scss">
 
 
 <style>
@@ -154,9 +149,7 @@
                             <option value="0" selected>请选择链接类型</option>
                             <option value="1">直播间</option>
                             <option value="2">个人作品</option>
-
                         </select>
-
                     </div>
                 </div>
                 <div class="col-xs-8 col-sm-4 col-md-4 col-lg-2">
@@ -206,7 +199,7 @@
         <div class="card-body">
 
           <div class="table-responsive">
-            <table class="table table-bordered" id="sampleTable">
+            <table class="table table-bordered" id="sampleTable" data-show-jumpto="true">
 
             </table>
           </div>
@@ -329,10 +322,10 @@
 <script src="./js/bootstrap-select-1.13.18/bootstrap-select.min.js"></script>
 
 
-
-
-
 <script type="text/javascript" src="./js/perfect-scrollbar.min.js"></script>
+
+<script src="./js/bootstrap-table/extensions/page-jump-to/bootstrap-table-page-jump-to.js"></script>
+
 
 <script type="text/javascript">
 
@@ -361,16 +354,12 @@ if(mybck == "" || mybck == null){
       $('.addselectpicker').selectpicker({});
 
 
-
-
-
       //-------------------侧边栏功能------------------//
       //右边框内容必须创建
       new PerfectScrollbar('.lyear-right-box-body', {
           swipeEasing: false,
           suppressScrollX: true
       });
-
 
 
       $(document).on('click', '[data-toggle="lyear-right-box"]', function(e) {
@@ -394,7 +383,6 @@ if(mybck == "" || mybck == null){
               }
           }
       });
-
 
       $(document).on('click', '.lyear-right-box-backdrop', function(){
           $("#add_likns").val("");
@@ -890,7 +878,7 @@ if(mybck == "" || mybck == null){
                   sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
                   pageNumber:1,                       //初始化加载第一页，默认第一页
                   pageSize: 15,                       //每页的记录行数（*）
-                  pageList: [15, 30, 50, 100,150],        //可供选择的每页的行数（*）
+                  pageList: [15, 30, 50, 100,150,300,500,1000],        //可供选择的每页的行数（*）
                   paginationPreText: '上一页',//指定分页条中上一页按钮的图标或文字,这里是<
                   paginationNextText: '下一页',//指定分页条中下一页按钮的图标或文字,这里是>
                   search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
@@ -905,6 +893,7 @@ if(mybck == "" || mybck == null){
                   showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
                   cardView: false,                    //是否显示详细视图
                   detailView: false,                   //是否显示父子表
+                  // showJumpTo: true,                     // 是否显示跳页
                   locale: 'zh-CN',                     //设置中文 ,记得引入中文包js
                   columns: [
                   //   {
@@ -1781,7 +1770,10 @@ if(mybck == "" || mybck == null){
 
     function selectDialogOnchang(obj){
 
-        $("#add_likns").focus();
+
+        // $("#add_likns").focus();
+
+
 
     }
 
