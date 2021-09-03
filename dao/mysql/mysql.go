@@ -45,6 +45,7 @@ func Init() error {
 	CheckIsExistModelLink()
 	CheckIsExistModelPhone()
 	CheckIsExistModelConfig()
+	CheckIsExistModelUserId()
 
 	//CheckIsExistModel(&model.Link{})
 	//CheckIsExistModel(&model.Admin{})
@@ -93,5 +94,14 @@ func CheckIsExistModelConfig() {
 	} else {
 		fmt.Println("数据不存在,所以我要先创建数据库")
 		DB.CreateTable(&model.Config{})
+	}
+}
+func CheckIsExistModelUserId() {
+	if DB.HasTable(&model.UserId{}) {
+		fmt.Println("数据库已经存在了!")
+		DB.AutoMigrate(&model.UserId{})
+	} else {
+		fmt.Println("数据不存在,所以我要先创建数据库")
+		DB.CreateTable(&model.UserId{})
 	}
 }

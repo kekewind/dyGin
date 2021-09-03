@@ -52,6 +52,11 @@ func Setup() *gin.Engine {
 	//脚本修改状态  SetOneConfigStatus
 	r.GET("/phone/SetOneConfigStatus", controller.SetOneConfigStatus)
 
+	//上传id
+	r.POST("/phone/uploadIds", controller.UploadUserIds)
+	//脚本 获取用户 抖音id
+	r.GET("dy/getOne",controller.GetDyUserIdOne)
+
 	//脚本上传
 	r.POST("/uploadFile", func(context *gin.Context) {
 		//单个文件

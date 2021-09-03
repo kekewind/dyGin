@@ -27,7 +27,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27eebe83-55be-49cb-879f-34c35285f6a1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/controller/userId.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/userId.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dao/mysql/mysql.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/mysql.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main" beforeDir="false" afterPath="$PROJECT_DIR$/main" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,9 +139,10 @@
     </state>
     <state x="780" y="298" width="352" height="531" key="ftp.server.browser/50.25.1630.1025@50.25.1630.1025" timestamp="1624257260533" />
     <state x="782" y="298" key="ftp.server.browser/53.25.1627.1025@53.25.1627.1025" timestamp="1624199770274" />
-    <state x="1109" y="374" width="671" height="676" key="search.everywhere.popup" timestamp="1624214924459">
-      <screen x="50" y="25" width="1630" height="1025" />
+    <state x="2579" y="297" width="1054" height="934" key="search.everywhere.popup" timestamp="1630633873927">
+      <screen x="1680" y="-111" width="2560" height="1415" />
     </state>
+    <state x="2579" y="297" width="1054" height="934" key="search.everywhere.popup/1680.-111.2560.1415/41.25.1639.1025@1680.-111.2560.1415" timestamp="1630633873927" />
     <state x="1109" y="374" width="671" height="676" key="search.everywhere.popup/50.25.1630.1025@50.25.1630.1025" timestamp="1624214924459" />
     <state x="1109" y="374" width="670" height="676" key="search.everywhere.popup/51.25.1629.1025@51.25.1629.1025" timestamp="1624207023037" />
   </component>
