@@ -27,12 +27,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27eebe83-55be-49cb-879f-34c35285f6a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controller/userId.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/userId.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dao/redis/redis.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dao/mysql/mysql.go" beforeDir="false" afterPath="$PROJECT_DIR$/dao/mysql/mysql.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main" beforeDir="false" afterPath="$PROJECT_DIR$/main" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/userId.go" beforeDir="false" afterPath="$PROJECT_DIR$/controller/userId.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/userId.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/userId.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,9 +111,10 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="473" y="226" key="#Deployment" timestamp="1624257262071">
-      <screen x="50" y="25" width="1630" height="1025" />
+    <state x="498" y="182" key="#Deployment" timestamp="1631797557291">
+      <screen x="39" y="25" width="1641" height="1025" />
     </state>
+    <state x="498" y="182" key="#Deployment/39.25.1641.1025@39.25.1641.1025" timestamp="1631797557291" />
     <state x="473" y="226" key="#Deployment/50.25.1630.1025@50.25.1630.1025" timestamp="1624257262071" />
     <state x="475" y="226" key="#Deployment/53.25.1627.1025@53.25.1627.1025" timestamp="1624199771342" />
     <state x="671" y="375" key="#Go_Modules" timestamp="1624199286732">
@@ -123,9 +125,10 @@
       <screen x="53" y="25" width="1627" height="1025" />
     </state>
     <state x="583" y="244" key="#Options/53.25.1627.1025@53.25.1627.1025" timestamp="1624199676716" />
-    <state x="459" y="213" key="#SSH_Configurations" timestamp="1624199757490">
-      <screen x="53" y="25" width="1627" height="1025" />
+    <state x="2319" y="149" key="#SSH_Configurations" timestamp="1631797542188">
+      <screen x="1680" y="-111" width="2560" height="1415" />
     </state>
+    <state x="2319" y="149" key="#SSH_Configurations/1680.-111.2560.1415/39.25.1641.1025@1680.-111.2560.1415" timestamp="1631797542188" />
     <state x="459" y="213" key="#SSH_Configurations/53.25.1627.1025@53.25.1627.1025" timestamp="1624199757490" />
     <state x="373" y="191" key="SettingsEditor" timestamp="1624958264980">
       <screen x="53" y="25" width="1627" height="1025" />
@@ -139,10 +142,11 @@
     </state>
     <state x="780" y="298" width="352" height="531" key="ftp.server.browser/50.25.1630.1025@50.25.1630.1025" timestamp="1624257260533" />
     <state x="782" y="298" key="ftp.server.browser/53.25.1627.1025@53.25.1627.1025" timestamp="1624199770274" />
-    <state x="2579" y="297" width="1054" height="934" key="search.everywhere.popup" timestamp="1630633873927">
+    <state x="2579" y="297" width="1054" height="934" key="search.everywhere.popup" timestamp="1631009013162">
       <screen x="1680" y="-111" width="2560" height="1415" />
     </state>
     <state x="2579" y="297" width="1054" height="934" key="search.everywhere.popup/1680.-111.2560.1415/41.25.1639.1025@1680.-111.2560.1415" timestamp="1630633873927" />
+    <state x="2579" y="297" width="1054" height="934" key="search.everywhere.popup/1680.-111.2560.1415/44.25.1636.1025@1680.-111.2560.1415" timestamp="1631009013162" />
     <state x="1109" y="374" width="671" height="676" key="search.everywhere.popup/50.25.1630.1025@50.25.1630.1025" timestamp="1624214924459" />
     <state x="1109" y="374" width="670" height="676" key="search.everywhere.popup/51.25.1629.1025@51.25.1629.1025" timestamp="1624207023037" />
   </component>

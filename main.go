@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/wangyi/dyGin/dao/mysql"
+	"github.com/wangyi/dyGin/dao/redis"
 	"github.com/wangyi/dyGin/logger"
 	"github.com/wangyi/dyGin/model"
 	"github.com/wangyi/dyGin/router"
@@ -35,6 +36,22 @@ func main() {
 	}
 
 	defer mysql.Close()
+
+	//redis 初始化
+	//4.初始化redis连接
+	if err := redis.Init(); err != nil {
+		fmt.Println("redis文件初始化失败：", err)
+		return
+	}
+
+	redis.Rdb.Set("soul", "1",0)
+	//println(redis.Rdb.Get("soul").String())
+	defer redis.Close()
+
+
+
+
+
 
 	//进程 心跳 没30秒修改 数据设备的状态
 	go func() {

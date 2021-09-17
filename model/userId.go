@@ -15,4 +15,5 @@ type UserId struct {
 	UseUser   string  `gorm:"comment:'使用链接的手机'"`
 	Created  int64  `gorm:"comment:'创建时间'"`
 	Updated  int64  `gorm:"comment:'更新时间'"`
+	Path  int   `gorm:"comment:'1是大众采集 2是通讯录采集'"`
 }
